@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<TfrxReport Version="6.6.17" DotMatrixReport="False" IniFile="\Software\Fast Reports" PreviewOptions.Buttons="167935" PreviewOptions.Zoom="1" PrintOptions.Printer="Default" PrintOptions.PrintOnSheet="0" ReportOptions.CreateDate="44078,651445081" ReportOptions.Description.Text="" ReportOptions.LastChange="44098,3495159259" ScriptLanguage="PascalScript" ScriptText.Text="&#13;&#10;begin&#13;&#10;&#13;&#10;end.">
+  <Datasets>
+    <item DataSet="frxSchedeLav" DataSetName="frxDBDataset1"/>
+    <item DataSet="frxRigheScheda" DataSetName="frxDBDataset2"/>
+  </Datasets>
+  <Styles>
+    <item Name="EvenRows" Font.Charset="1" Font.Color="-16777208" Font.Height="-13" Font.Name="Arial" Font.Style="0" Frame.Typ="0" Fill.BackColor="15000804"/>
+  </Styles>
+  <TfrxDataPage Name="Data" Height="1000" Left="0" Top="0" Width="1000"/>
+  <TfrxReportPage Name="Page1" Font.Charset="1" Font.Color="0" Font.Height="-13" Font.Name="Arial" Font.Style="0" PaperWidth="210" PaperHeight="297" PaperSize="9" LeftMargin="10" RightMargin="10" TopMargin="10" BottomMargin="10" ColumnWidth="0" ColumnPositions.Text="" Frame.Typ="0" MirrorMode="0" HGuides.Text="" VGuides.Text="">
+    <TfrxReportTitle Name="ReportTitle1" FillType="ftBrush" FillGap.Top="0" FillGap.Left="0" FillGap.Bottom="0" FillGap.Right="0" Frame.Typ="8" Font.Charset="1" Font.Color="0" Font.Height="-19" Font.Name="Arial" Font.Style="1" Height="22,67718" Left="0" ParentFont="False" Top="18,89765" Width="718,1107">
+      <TfrxMemoView Name="Memo1" AllowVectorExport="True" Left="222,99227" Top="1,889765" Width="272,12616" Height="18,89765" Font.Charset="1" Font.Color="0" Font.Height="-19" Font.Name="Arial" Font.Style="1" Frame.Typ="0" HAlign="haCenter" ParentFont="False" Text="SCHEDA DI LAVORAZIONE"/>
+    </TfrxReportTitle>
+    <TfrxPageHeader Name="PageHeader1" FillType="ftBrush" FillGap.Top="0" FillGap.Left="0" FillGap.Bottom="0" FillGap.Right="0" Frame.Typ="0" Height="22,67718" Left="0" Top="64,25201" Width="718,1107" PrintOnFirstPage="False"/>
+    <TfrxPageFooter Name="PageFooter1" FillType="ftBrush" FillGap.Top="0" FillGap.Left="0" FillGap.Bottom="0" FillGap.Right="0" Frame.Typ="4" Font.Charset="1" Font.Color="0" Font.Height="-12" Font.Name="Arial" Font.Style="0" Height="22,67718" Left="0" ParentFont="False" Top="468,66172" Width="718,1107">
+      <TfrxMemoView Name="Date" IndexTag="1" AllowVectorExport="True" Left="7,55906" Top="0" Width="200,31509" Height="18,89765" Frame.Typ="0" Text="Stampato il [Date] [Time]"/>
+      <TfrxMemoView Name="Page" IndexTag="1" Align="baRight" AllowVectorExport="True" Left="574,48856" Top="0" Width="143,62214" Height="18,89765" Frame.Typ="0" Text="[Page#] / [TotalPages#]"/>
+    </TfrxPageFooter>
+    <TfrxHeader Name="Header1" FillType="ftBrush" FillGap.Top="0" FillGap.Left="0" FillGap.Bottom="0" FillGap.Right="0" Frame.Typ="8" Font.Charset="0" Font.Color="0" Font.Height="-16" Font.Name="Arial Narrow" Font.Style="1" Height="79,37013" Left="0" ParentFont="False" Top="147,40167" Width="718,1107" ReprintOnNewPage="True">
+      <TfrxMemoView Name="frxDBDataset1Data" IndexTag="1" AllowVectorExport="True" Left="45,35436" Top="11,33859" Width="105,82684" Height="18,89765" DataField="Data" DataSet="frxSchedeLav" DataSetName="frxDBDataset1" Frame.Typ="0" Text="[frxDBDataset1.&#34;Data&#34;]"/>
+      <TfrxMemoView Name="frxDBDataset1Operatore" IndexTag="1" AllowVectorExport="True" Left="170,07885" Top="11,33859" Width="245,66945" Height="18,89765" DataField="Operatore" DataSet="frxSchedeLav" DataSetName="frxDBDataset1" Frame.Typ="0" Text="[frxDBDataset1.&#34;Operatore&#34;]"/>
+      <TfrxMemoView Name="frxDBDataset1Macchina" IndexTag="1" AllowVectorExport="True" Left="427,08689" Top="11,33859" Width="275,90569" Height="18,89765" DataField="Macchina" DataSet="frxSchedeLav" DataSetName="frxDBDataset1" Frame.Typ="0" Text="[frxDBDataset1.&#34;Macchina&#34;]"/>
+      <TfrxMemoView Name="frxDBDataset1Orario_Inizio" IndexTag="1" AllowVectorExport="True" Left="45,35436" Top="52,91342" Width="336,37817" Height="18,89765" DataSet="frxSchedeLav" DataSetName="frxDBDataset1" Frame.Typ="0" Text="Turno :   [frxDBDataset1.&#34;Turno&#34;]     [frxDBDataset1.&#34;Orario_Inizio&#34;]  [frxDBDataset1.&#34;Orario_fine&#34;]"/>
+      <TfrxLineView Name="Line1" AllowVectorExport="True" Left="3" Top="79,37013" Width="714,33117" Height="0" Color="0" Frame.Typ="4"/>
+    </TfrxHeader>
+    <TfrxGroupHeader Name="GroupHeader1" FillType="ftBrush" FillGap.Top="0" FillGap.Left="0" FillGap.Bottom="0" FillGap.Right="0" Frame.Typ="0" Font.Charset="1" Font.Color="0" Font.Height="-15" Font.Name="Arial" Font.Style="1" Height="22,67718" Left="0" ParentFont="False" Top="249,44898" Width="718,1107" Child="Child1" Condition="frxDBDataset2.&#34;NomeSchema&#34;" DrillDown="True">
+      <TfrxMemoView Name="Memo5" IndexTag="1" Align="baBottom" AllowVectorExport="True" Left="7,55906" Top="3,77953" Width="234,33086" Height="18,89765" DataSet="frxRigheScheda" DataSetName="frxDBDataset2" Frame.Typ="0" Highlight.Font.Charset="1" Highlight.Font.Color="0" Highlight.Font.Height="-15" Highlight.Font.Name="Arial" Highlight.Font.Style="1" Highlight.Condition="&#60;line&#62; mod 2 = 1" Highlight.FillType="ftBrush" Highlight.Fill.BackColor="15000804" Highlight.Frame.Typ="0" VAlign="vaCenter" Text="[frxDBDataset2.&#34;NomeSchema&#34;]"/>
+      <TfrxMemoView Name="frxDBDataset2PrgModels" IndexTag="1" Align="baBottom" AllowVectorExport="True" Left="241,88992" Top="3,77953" Width="472,44125" Height="18,89765" DataSet="frxRigheScheda" DataSetName="frxDBDataset2" Font.Charset="0" Font.Color="0" Font.Height="-13" Font.Name="Franklin Gothic Medium Cond" Font.Style="0" Frame.Typ="0" Highlight.Font.Charset="0" Highlight.Font.Color="0" Highlight.Font.Height="-15" Highlight.Font.Name="Calibri" Highlight.Font.Style="0" Highlight.Condition="&#60;Line&#62; mod 2 = 1" Highlight.FillType="ftBrush" Highlight.Fill.BackColor="15000804" Highlight.Frame.Typ="0" ParentFont="False" Text="[frxDBDataset2.&#34;PrgModels&#34;]"/>
+    </TfrxGroupHeader>
+    <TfrxMasterData Name="MasterData1" FillType="ftBrush" FillGap.Top="0" FillGap.Left="0" FillGap.Bottom="0" FillGap.Right="0" Frame.Typ="0" Height="22,67718" Left="0" Top="340,1577" Width="718,1107" ColumnWidth="0" ColumnGap="0" DataSet="frxRigheScheda" DataSetName="frxDBDataset2" RowCount="0">
+      <TfrxMemoView Name="frxDBDataset2Materiale" IndexTag="1" AllowVectorExport="True" Left="253,22851" Top="0" Width="340,1577" Height="18,89765" DataSet="frxRigheScheda" DataSetName="frxDBDataset2" Font.Charset="1" Font.Color="0" Font.Height="-13" Font.Name="Arial" Font.Style="0" Frame.Typ="0" HAlign="haCenter" Highlight.Font.Charset="1" Highlight.Font.Color="0" Highlight.Font.Height="-13" Highlight.Font.Name="Arial" Highlight.Font.Style="0" Highlight.Condition="&#60;line&#62; mod 2 = 1" Highlight.FillType="ftBrush" Highlight.Fill.BackColor="-16777201" Highlight.Frame.Typ="0" ParentFont="False" VAlign="vaCenter" Text="[frxDBDataset2.&#34;Materiale&#34;] da [frxDBDataset2.&#34;Spessore&#34;]  -  [frxDBDataset2.&#34;PanelXdim&#34;] X [frxDBDataset2.&#34;PanelYDim&#34;]">
+        <Formats>
+          <item/>
+          <item/>
+          <item/>
+          <item/>
+        </Formats>
+      </TfrxMemoView>
+      <TfrxMemoView Name="frxDBDataset2Qta" IndexTag="1" AllowVectorExport="True" Left="590,75634" Top="0" Width="94,48825" Height="18,89765" DataSet="frxRigheScheda" DataSetName="frxDBDataset2" Font.Charset="1" Font.Color="0" Font.Height="-13" Font.Name="Arial" Font.Style="0" Frame.Typ="0" HAlign="haRight" Highlight.Font.Charset="1" Highlight.Font.Color="0" Highlight.Font.Height="-13" Highlight.Font.Name="Arial" Highlight.Font.Style="0" Highlight.Condition="&#60;line&#62; mod 2 = 1" Highlight.FillType="ftBrush" Highlight.Fill.BackColor="-16777201" Highlight.Frame.Typ="0" ParentFont="False" VAlign="vaCenter" Text="[frxDBDataset2.&#34;Qta&#34;]"/>
+      <TfrxMemoView Name="frxDBDataset2NSchema" IndexTag="1" AllowVectorExport="True" Left="11,33859" Top="0" Width="238,11039" Height="18,89765" DataField="NSchema" DataSet="frxRigheScheda" DataSetName="frxDBDataset2" Frame.Typ="0" Text="[frxDBDataset2.&#34;NSchema&#34;]"/>
+    </TfrxMasterData>
+    <TfrxChild Name="Child1" FillType="ftBrush" FillGap.Top="0" FillGap.Left="0" FillGap.Bottom="0" FillGap.Right="0" Frame.Typ="0" Font.Charset="1" Font.Color="0" Font.Height="-13" Font.Name="Arial" Font.Style="0" Height="22,67718" Left="0" ParentFont="False" Top="294,80334" Width="718,1107" ToNRows="0" ToNRowsMode="rmCount">
+      <TfrxMemoView Name="Memo3" AllowVectorExport="True" Left="389,29159" Top="0" Width="120,94496" Height="18,89765" Frame.Typ="0" HAlign="haCenter" Text="Pannello"/>
+      <TfrxMemoView Name="Memo2" AllowVectorExport="True" Left="578,26809" Top="0" Width="120,94496" Height="18,89765" Frame.Typ="0" Text="Totale pannelli"/>
+    </TfrxChild>
+    <TfrxGroupFooter Name="GroupFooter1" FillType="ftBrush" FillGap.Top="0" FillGap.Left="0" FillGap.Bottom="0" FillGap.Right="0" Frame.Typ="0" Font.Charset="1" Font.Color="0" Font.Height="-13" Font.Name="Arial" Font.Style="1" Height="22,67718" Left="0" ParentFont="False" Top="385,51206" Width="718,1107">
+      <TfrxSysMemoView Name="SysMemo1" AllowVectorExport="True" Left="556,74057" Top="0" Width="128,50402" Height="18,89765" Frame.Typ="4" HAlign="haRight" Text="[SUM(&#60;frxDBDataset2.&#34;Qta&#34;&#62;,MasterData1)]"/>
+    </TfrxGroupFooter>
+  </TfrxReportPage>
+</TfrxReport>

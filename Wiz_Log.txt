@@ -1,0 +1,98 @@
+BDE/IBX/ADO/ODAC/SDAC/MyDAC/IBDAC/PgDAC/LiteDAC/AnyDAC/FireDAC/FIBPlus Migration Wizard log
+
+Created at: 01/12/2025 10:33:36
+
+Initializing unit list
+
+Creating backup folder
+
+Allocating temporary folder
+
+Processing file: C:\Users\barto\Documents\Embarcadero\Studio\Projects\Desktop projects\Schede Lavorazione 2025\AlphaCamPreviewUnit.pas
+
+No changes
+
+Processing file: C:\Users\barto\Documents\Embarcadero\Studio\Projects\Desktop projects\Schede Lavorazione 2025\SchedeLav.dpr
+
+No changes
+
+Processing file: C:\Users\barto\Documents\Embarcadero\Studio\Projects\Desktop projects\Schede Lavorazione 2025\SchedeLav_2024.dpr
+
+No changes
+
+Processing file: C:\Users\barto\Documents\Embarcadero\Studio\Projects\Desktop projects\Schede Lavorazione 2025\UDM.pas
+
+36 change(s)
+
+Processing file: C:\Users\barto\Documents\Embarcadero\Studio\Projects\Desktop projects\Schede Lavorazione 2025\UfrmFermiMacchina.pas
+
+No changes
+
+Processing file: C:\Users\barto\Documents\Embarcadero\Studio\Projects\Desktop projects\Schede Lavorazione 2025\UImpostazioni.pas
+
+No changes
+
+Processing file: C:\Users\barto\Documents\Embarcadero\Studio\Projects\Desktop projects\Schede Lavorazione 2025\UMain.pas
+
+No changes
+
+Processing file: C:\Users\barto\Documents\Embarcadero\Studio\Projects\Desktop projects\Schede Lavorazione 2025\UNewCursalTypes.pas
+
+No changes
+
+Processing file: C:\Users\barto\Documents\Embarcadero\Studio\Projects\Desktop projects\Schede Lavorazione 2025\UNotifications.pas
+
+No changes
+
+Processing file: C:\Users\barto\Documents\Embarcadero\Studio\Projects\Desktop projects\Schede Lavorazione 2025\USchedeLavTypes.pas
+
+No changes
+
+Processing file: C:\Users\barto\Documents\Embarcadero\Studio\Projects\Desktop projects\Schede Lavorazione 2025\USchemaPantografo.pas
+
+No changes
+
+Processing file: C:\Users\barto\Documents\Embarcadero\Studio\Projects\Desktop projects\Schede Lavorazione 2025\USchemiIncompleti.pas
+
+No changes
+
+Processing file: C:\Users\barto\Documents\Embarcadero\Studio\Projects\Desktop projects\Schede Lavorazione 2025\USelectParts.pas
+
+No changes
+
+Processing file: C:\Users\barto\Documents\Embarcadero\Studio\Projects\Desktop projects\Schede Lavorazione 2025\UDM.DFM
+
+35 change(s)
+
+Processing file: C:\Users\barto\Documents\Embarcadero\Studio\Projects\Desktop projects\Schede Lavorazione 2025\UfrmFermiMacchina.DFM
+
+No changes
+
+Processing file: C:\Users\barto\Documents\Embarcadero\Studio\Projects\Desktop projects\Schede Lavorazione 2025\UImpostazioni.DFM
+
+No changes
+
+Processing file: C:\Users\barto\Documents\Embarcadero\Studio\Projects\Desktop projects\Schede Lavorazione 2025\UMain.DFM
+
+No changes
+
+Processing file: C:\Users\barto\Documents\Embarcadero\Studio\Projects\Desktop projects\Schede Lavorazione 2025\UNotifications.DFM
+
+No changes
+
+Processing file: C:\Users\barto\Documents\Embarcadero\Studio\Projects\Desktop projects\Schede Lavorazione 2025\USchemiIncompleti.DFM
+
+No changes
+
+Processing file: C:\Users\barto\Documents\Embarcadero\Studio\Projects\Desktop projects\Schede Lavorazione 2025\USelectParts.DFM
+
+No changes
+
+Replacing original files with changed versions
+
+Backup file: C:\Users\barto\Documents\Embarcadero\Studio\Projects\Desktop projects\Schede Lavorazione 2025\RBackup\RExpert.reu
+
+Removing temporary folder
+
+Replace procedure was performed sucessfully.
+

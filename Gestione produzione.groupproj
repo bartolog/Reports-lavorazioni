@@ -1,0 +1,36 @@
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <PropertyGroup>
+        <ProjectGuid>{F74BE8F7-58D0-476E-9733-05B9C5D814FE}</ProjectGuid>
+    </PropertyGroup>
+    <ItemGroup>
+        <Projects Include="SchedeLav.dproj">
+            <Dependencies/>
+        </Projects>
+    </ItemGroup>
+    <ProjectExtensions>
+        <Borland.Personality>Default.Personality.12</Borland.Personality>
+        <Borland.ProjectType/>
+        <BorlandProject>
+            <Default.Personality/>
+        </BorlandProject>
+    </ProjectExtensions>
+    <Target Name="SchedeLav">
+        <MSBuild Projects="SchedeLav.dproj"/>
+    </Target>
+    <Target Name="SchedeLav:Clean">
+        <MSBuild Projects="SchedeLav.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="SchedeLav:Make">
+        <MSBuild Projects="SchedeLav.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="Build">
+        <CallTarget Targets="SchedeLav"/>
+    </Target>
+    <Target Name="Clean">
+        <CallTarget Targets="SchedeLav:Clean"/>
+    </Target>
+    <Target Name="Make">
+        <CallTarget Targets="SchedeLav:Make"/>
+    </Target>
+    <Import Project="$(BDS)\Bin\CodeGear.Group.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Group.Targets')"/>
+</Project>
