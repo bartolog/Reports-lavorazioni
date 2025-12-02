@@ -104,7 +104,8 @@ object DM: TDM
     Port = 3306
     Database = 'falegnameria_fusti'
     Username = 'bartolo'
-    Server = 'localhost'
+    Server = 'server2018'
+    Connected = True
     Left = 48
     Top = 24
     EncryptedPassword = '9DFF9EFF8DFF8BFF90FF93FF90FF'
@@ -124,6 +125,12 @@ object DM: TDM
     OnNewRecord = tblRigheSchedaNewRecord
     Left = 792
     Top = 16
+    ParamData = <
+      item
+        DataType = ftUnknown
+        Name = 'IdScheda'
+        Value = nil
+      end>
     object tblRigheSchedaIdScheda: TLongWordField
       FieldName = 'IdScheda'
       Origin = 'righe_scheda_lavorazione.IdScheda'
@@ -253,6 +260,10 @@ object DM: TDM
       KeyFields = 'idSchema'
       Lookup = True
     end
+    object tblRigheSchedaCodiceMatGo: TStringField
+      FieldName = 'CodiceMatGo'
+      Size = 50
+    end
   end
   object srcRigheScheda: TUniDataSource
     DataSet = tblRigheScheda
@@ -298,7 +309,7 @@ object DM: TDM
     object tblSchemiNome: TStringField
       FieldName = 'Nome'
       Origin = 'schemi_di_lavorazione.Nome'
-      Size = 45
+      Size = 90
     end
     object tblSchemiHash: TStringField
       FieldName = 'Hash'
@@ -695,14 +706,24 @@ object DM: TDM
       end>
   end
   object qryRigheScheda: TUniQuery
+    SQLDelete.Strings = (
+      'DELETE FROM righe_scheda_lavorazione'
+      'WHERE'
+      '  IdScheda = :Old_IdScheda AND Riga = :Old_Riga')
+    SQLUpdate.Strings = (
+      'UPDATE righe_scheda_lavorazione'
+      'SET'
+      '  Qta = :Qta, CodiceMatGo = :CodiceMatGo'
+      'WHERE'
+      '  IdScheda = :Old_IdScheda AND Riga = :Old_Riga')
     Connection = connFal_Fusti
     SQL.Strings = (
       
         'SELECT rsl.IdScheda, rsl.Riga,sdl.NSchema,  rsl.idSchema,sdl.nTe' +
-        'ste, rsl.Qta, sdl.Nome, sdl.Materiale, sdl.Dim_X_Pannello, sdl.D' +
-        'im_Y_Pannello, sdl.Dim_Z_Pannello, sdl.Num_Pannelli, sdl.Pacco, ' +
-        'sdl.Modelli, sdl.Eseguito_Start,sdl.Eseguito_End FROM righe_sche' +
-        'da_lavorazione rsl'
+        'ste, rsl.Qta, sdl.Nome, sdl.Materiale, rsl.CodiceMatGo,  sdl.Dim' +
+        '_X_Pannello, sdl.Dim_Y_Pannello, sdl.Dim_Z_Pannello, sdl.Num_Pan' +
+        'nelli, sdl.Pacco, sdl.Modelli, sdl.Eseguito_Start,sdl.Eseguito_E' +
+        'nd FROM righe_scheda_lavorazione rsl'
       
         'INNER JOIN schemi_di_lavorazione sdl ON rsl.idSchema = sdl.idSch' +
         'ema'
@@ -735,7 +756,7 @@ object DM: TDM
     end
     object qryRigheSchedaNome: TStringField
       FieldName = 'Nome'
-      Size = 45
+      Size = 90
     end
     object qryRigheSchedaMateriale: TStringField
       FieldName = 'Materiale'
@@ -768,6 +789,10 @@ object DM: TDM
     end
     object qryRigheSchedaEseguito_End: TDateTimeField
       FieldName = 'Eseguito_End'
+    end
+    object qryRigheSchedaCodiceMatGo: TStringField
+      FieldName = 'CodiceMatGo'
+      Size = 50
     end
   end
   object dsRighescheda: TUniDataSource

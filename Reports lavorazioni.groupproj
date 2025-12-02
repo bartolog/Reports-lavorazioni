@@ -1,6 +1,6 @@
 ﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
     <PropertyGroup>
-        <ProjectGuid>{95D51103-DAC4-4060-A2A9-16B41C01EA07}</ProjectGuid>
+        <ProjectGuid>{506B8454-1D56-4196-AF7A-37DCCB5B24D6}</ProjectGuid>
     </PropertyGroup>
     <ItemGroup>
         <Projects Include="SchedeLav_2025.dproj">

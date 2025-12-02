@@ -39,7 +39,7 @@ uses
   dxPScxGridLnk, dxPScxGridLayoutViewLnk, dxPScxEditorProducers,
   dxPScxExtEditorProducers, dxPSContainerLnk, dxPSCore, dxPScxCommon,
   cxButtons, dxSkinWXI, Vcl.WinXCtrls, frxSmartMemo, frCoreClasses,
-  dxUIAClasses;
+  dxUIAClasses, cxDBLookupComboBox, UDMGO;
 
 type
 
@@ -212,6 +212,7 @@ type
     Label17: TLabel;
     dxComponentPrinter1: TdxComponentPrinter;
     PrintGrid1: TdxGridReportLink;
+    cxGrid1DBTableView1CodiceMatGo: TcxGridDBColumn;
     procedure FormShow(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure Scheminoncompletati1Click(Sender: TObject);

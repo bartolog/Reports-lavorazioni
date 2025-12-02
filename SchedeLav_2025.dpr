@@ -15,7 +15,6 @@ uses
   EDialogWinAPIStepsToReproduce,
   ExceptionLog7,
   {$ENDIF EurekaLog}
-
   Vcl.Forms,
   UMain in 'UMain.pas' {MainForm},
   UDM in 'UDM.pas' {DM: TDataModule},
@@ -33,7 +32,8 @@ uses
   USchedeLavTypes in 'USchedeLavTypes.pas',
   USchemaPantografo in 'USchemaPantografo.pas',
   Vcl.Themes,
-  Vcl.Styles;
+  Vcl.Styles,
+  UDMGO in 'UDMGO.pas' {DMGO: TDataModule};
 
 {$R *.res}
 
@@ -43,6 +43,7 @@ begin
   TStyleManager.TrySetStyle('Luna');
   Application.Title := 'Gestioine rapportini produzione';
   Application.CreateForm(TDM, DM);
+  Application.CreateForm(TDMGO, DMGO);
   Application.CreateForm(TMainForm, MainForm);
   Application.CreateForm(TfrmImpostazioni, frmImpostazioni);
   Application.CreateForm(TfrmSchemiIncompleti, frmSchemiIncompleti);

@@ -556,6 +556,7 @@ object MainForm: TMainForm
         TabOrder = 1
         LookAndFeel.NativeStyle = False
         LookAndFeel.SkinName = 'LondonLiquidSky'
+        ExplicitTop = 111
         object cxGrid1DBTableView1: TcxGridDBTableView
           Navigator.Buttons.Images = imgListNavigator
           Navigator.Buttons.First.Visible = False
@@ -622,6 +623,19 @@ object MainForm: TMainForm
           object cxGrid1DBTableView1Materiale: TcxGridDBColumn
             DataBinding.FieldName = 'Materiale'
             Options.Editing = False
+            Width = 164
+          end
+          object cxGrid1DBTableView1CodiceMatGo: TcxGridDBColumn
+            Caption = 'Materiale Go'
+            DataBinding.FieldName = 'CodiceMatGo'
+            PropertiesClassName = 'TcxLookupComboBoxProperties'
+            Properties.KeyFieldNames = 'CODICE'
+            Properties.ListColumns = <
+              item
+                FieldName = 'DESCRIZIONE1'
+              end>
+            Properties.ListSource = DMGO.dsMateriali
+            Width = 164
           end
           object cxGrid1DBTableView1Dim_X_Pannello: TcxGridDBColumn
             DataBinding.FieldName = 'Dim_X_Pannello'

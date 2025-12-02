@@ -135,6 +135,8 @@ type
     qryRigheSchedaEseguito_End: TDateTimeField;
     tblSchedeLavNumOperatori: TShortintField;
     MySQLUniProvider1: TMySQLUniProvider;
+    tblRigheSchedaCodiceMatGo: TStringField;
+    qryRigheSchedaCodiceMatGo: TStringField;
     procedure tblSchedeLavNewRecord(DataSet: TDataSet);
     procedure tblSchedeLavTurnoChange(Sender: TField);
     procedure tblSchedeLavMacchinaChange(Sender: TField);
