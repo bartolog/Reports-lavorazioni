@@ -21,7 +21,7 @@ object DMGO: TDMGO
     Connection = GOConnection
     SQL.Strings = (
       'SELECT CODICE , DESCRIZIONE1 FROM ART'
-      'WHERE CODICE LIKE '#39'ABT%'#39';')
+      'WHERE  TIN_CODICE = 2 AND LENGTH(trim(TIN_CODICE)) = 1;')
     Left = 168
     Top = 264
   end
