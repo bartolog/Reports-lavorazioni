@@ -101,10 +101,10 @@ object DM: TDM
   end
   object connFal_Fusti: TUniConnection
     ProviderName = 'MySQL'
-    Port = 3306
+    Port = 3308
     Database = 'falegnameria_fusti'
     Username = 'bartolo'
-    Server = 'server2018'
+    Server = 'localhost'
     Connected = True
     Left = 48
     Top = 24
@@ -125,12 +125,6 @@ object DM: TDM
     OnNewRecord = tblRigheSchedaNewRecord
     Left = 792
     Top = 16
-    ParamData = <
-      item
-        DataType = ftUnknown
-        Name = 'IdScheda'
-        Value = nil
-      end>
     object tblRigheSchedaIdScheda: TLongWordField
       FieldName = 'IdScheda'
       Origin = 'righe_scheda_lavorazione.IdScheda'
@@ -564,63 +558,14 @@ object DM: TDM
     Left = 512
     Top = 400
   end
-  object tblFermiMacchina: TUniTable
-    TableName = 'fermimacchina'
-    Connection = connFal_Fusti
-    MasterSource = srcSchedeLav
-    MasterFields = 'IdScheda'
-    DetailFields = 'idScheda'
-    AfterPost = tblFermiMacchinaAfterPost
-    AfterDelete = tblFermiMacchinaAfterDelete
-    OnNewRecord = tblFermiMacchinaNewRecord
-    Left = 40
-    Top = 216
-    object tblFermiMacchinaidScheda: TLargeintField
-      FieldName = 'idScheda'
-      Origin = 'fermimacchina.idScheda'
-    end
-    object tblFermiMacchinaNumNota: TSmallintField
-      FieldName = 'NumNota'
-      Origin = 'fermimacchina.NumNota'
-    end
-    object tblFermiMacchinaStart: TStringField
-      DisplayLabel = 'Inizio'
-      FieldName = 'Start'
-      Origin = 'fermimacchina.Start'
-      OnValidate = tblFermiMacchinaStartValidate
-      EditMask = '99:99;1;_'
-      Size = 25
-    end
-    object tblFermiMacchinaEnd: TStringField
-      DisplayLabel = 'Fine'
-      FieldName = 'End'
-      Origin = 'fermimacchina.End'
-      OnValidate = tblFermiMacchinaStartValidate
-      EditMask = '99:99;1;_'
-      Size = 25
-    end
-    object tblFermiMacchinaNota: TStringField
-      FieldName = 'Nota'
-      Origin = 'fermimacchina.Nota'
-      Size = 255
-    end
-    object tblFermiMacchinaTipo: TStringField
-      DisplayLabel = 'Categoria'
-      FieldName = 'Tipo'
-      Origin = 'fermimacchina.Tipo'
-      FixedChar = True
-      Size = 12
-    end
-  end
   object srcFermiMacchina: TUniDataSource
-    DataSet = tblFermiMacchina
     Left = 144
     Top = 216
   end
   object qryMaxNumNotaSchedaLav: TUniQuery
     Connection = connFal_Fusti
     SQL.Strings = (
-      'select max(NumNota) from FermiMacchina'
+      'select max(NumNota) from fermimacchina'
       'where idScheda = :IdScheda')
     MasterSource = srcSchedeLav
     Left = 496
@@ -1261,5 +1206,47 @@ object DM: TDM
   object MySQLUniProvider1: TMySQLUniProvider
     Left = 200
     Top = 112
+  end
+  object tblfermimacchina: TUniTable
+    TableName = 'fermimacchina'
+    Connection = connFal_Fusti
+    MasterSource = srcSchedeLav
+    MasterFields = 'IdScheda'
+    DetailFields = 'idScheda'
+    AfterPost = tblFermiMacchina_oldAfterPost
+    AfterDelete = tblFermiMacchina_oldAfterDelete
+    OnNewRecord = tblFermiMacchina_oldNewRecord
+    Left = 48
+    Top = 288
+    ParamData = <
+      item
+        DataType = ftUnknown
+        Name = 'IdScheda'
+        Value = nil
+      end>
+    object tblfermimacchinaidScheda: TLargeintField
+      FieldName = 'idScheda'
+      Required = True
+    end
+    object tblfermimacchinaNumNota: TSmallintField
+      FieldName = 'NumNota'
+      Required = True
+    end
+    object tblfermimacchinaStart: TStringField
+      FieldName = 'Start'
+      Size = 25
+    end
+    object tblfermimacchinaEnd: TStringField
+      FieldName = 'End'
+      Size = 25
+    end
+    object tblfermimacchinaNota: TStringField
+      FieldName = 'Nota'
+      Size = 255
+    end
+    object tblfermimacchinaTipo: TStringField
+      FieldName = 'Tipo'
+      Size = 12
+    end
   end
 end

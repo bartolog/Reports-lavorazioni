@@ -78,14 +78,7 @@ type
     tblRigheSchedaPrgModels: TStringField;
     tblSchemiNettoMQ: TFloatField;
     tblRigheSchedaData_Commessa: TStringField;
-    tblFermiMacchina: TUniTable;
     srcFermiMacchina: TUniDataSource;
-    tblFermiMacchinaidScheda: TLargeintField;
-    tblFermiMacchinaStart: TStringField;
-    tblFermiMacchinaEnd: TStringField;
-    tblFermiMacchinaNota: TStringField;
-    tblFermiMacchinaTipo: TStringField;
-    tblFermiMacchinaNumNota: TSmallintField;
     qryMaxNumNotaSchedaLav: TUniQuery;
     tblRigheSchedaNteste: TSmallintField;
     tblSchemiNTeste: TSmallintField;
@@ -137,6 +130,13 @@ type
     MySQLUniProvider1: TMySQLUniProvider;
     tblRigheSchedaCodiceMatGo: TStringField;
     qryRigheSchedaCodiceMatGo: TStringField;
+    tblfermimacchina: TUniTable;
+    tblfermimacchinaidScheda: TLargeintField;
+    tblfermimacchinaNumNota: TSmallintField;
+    tblfermimacchinaStart: TStringField;
+    tblfermimacchinaEnd: TStringField;
+    tblfermimacchinaNota: TStringField;
+    tblfermimacchinaTipo: TStringField;
     procedure tblSchedeLavNewRecord(DataSet: TDataSet);
     procedure tblSchedeLavTurnoChange(Sender: TField);
     procedure tblSchedeLavMacchinaChange(Sender: TField);
@@ -156,10 +156,10 @@ type
     procedure DataModuleCreate(Sender: TObject);
     procedure DataModuleDestroy(Sender: TObject);
     procedure tblSchedeLavAfterClose(DataSet: TDataSet);
-    procedure tblFermiMacchinaNewRecord(DataSet: TDataSet);
-    procedure tblFermiMacchinaAfterPost(DataSet: TDataSet);
-    procedure tblFermiMacchinaStartValidate(Sender: TField);
-    procedure tblFermiMacchinaAfterDelete(DataSet: TDataSet);
+    procedure tblFermiMacchina_oldNewRecord(DataSet: TDataSet);
+    procedure tblFermiMacchina_oldAfterPost(DataSet: TDataSet);
+    procedure tblFermiMacchina_oldStartValidate(Sender: TField);
+    procedure tblFermiMacchina_oldAfterDelete(DataSet: TDataSet);
     procedure qrySelectPartslavorazioniGetText(Sender: TField; var Text: string;
       DisplayText: Boolean);
   private
@@ -404,17 +404,17 @@ begin
     end);
 end;
 
-procedure TDM.tblFermiMacchinaAfterDelete(DataSet: TDataSet);
+procedure TDM.tblFermiMacchina_oldAfterDelete(DataSet: TDataSet);
 begin
   qryMaxNumNotaSchedaLav.Refresh;
 end;
 
-procedure TDM.tblFermiMacchinaAfterPost(DataSet: TDataSet);
+procedure TDM.tblFermiMacchina_oldAfterPost(DataSet: TDataSet);
 begin
   qryMaxNumNotaSchedaLav.Refresh;
 end;
 
-procedure TDM.tblFermiMacchinaNewRecord(DataSet: TDataSet);
+procedure TDM.tblFermiMacchina_oldNewRecord(DataSet: TDataSet);
 begin
   if qryMaxNumNotaSchedaLav.Fields[0].IsNull then
 
@@ -425,7 +425,7 @@ begin
 
 end;
 
-procedure TDM.tblFermiMacchinaStartValidate(Sender: TField);
+procedure TDM.tblFermiMacchina_oldStartValidate(Sender: TField);
 var
   a: TArray<string>;
   h, m: SmallInt;
