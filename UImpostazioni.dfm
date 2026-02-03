@@ -20,7 +20,7 @@ object frmImpostazioni: TfrmImpostazioni
     Top = 0
     Width = 790
     Height = 450
-    ActivePage = ts1
+    ActivePage = tsGreda
     Align = alClient
     TabOrder = 0
     object tsTRSI7500E: TTabSheet
@@ -273,8 +273,8 @@ object frmImpostazioni: TfrmImpostazioni
     end
   end
   object RzRegIniFile1: TRzRegIniFile
-    Left = 512
-    Top = 200
+    Left = 352
+    Top = 144
   end
   object RzFormState1: TRzFormState
     RegIniFile = RzRegIniFile1
@@ -324,7 +324,7 @@ object frmImpostazioni: TfrmImpostazioni
         PropertyName = 'Date'
       end>
     RegIniFile = RzRegIniFile1
-    Left = 376
-    Top = 240
+    Left = 352
+    Top = 216
   end
 end

@@ -137,6 +137,8 @@ type
     tblfermimacchinaEnd: TStringField;
     tblfermimacchinaNota: TStringField;
     tblfermimacchinaTipo: TStringField;
+    qryGetMatGoByIdScheda: TUniQuery;
+    cmdSetGOCoordinate: TUniSQL;
     procedure tblSchedeLavNewRecord(DataSet: TDataSet);
     procedure tblSchedeLavTurnoChange(Sender: TField);
     procedure tblSchedeLavMacchinaChange(Sender: TField);

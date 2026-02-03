@@ -1,4 +1,4 @@
-program SchedeLav_2025;
+program SchedeLav_2026;
 
 uses
   {$IFDEF EurekaLog}
@@ -13,13 +13,13 @@ uses
   EDialogWinAPIMSClassic,
   EDialogWinAPIEurekaLogDetailed,
   EDialogWinAPIStepsToReproduce,
+  EBase,
   ExceptionLog7,
   {$ENDIF EurekaLog}
   Vcl.Forms,
   UMain in 'UMain.pas' {MainForm},
   UDM in 'UDM.pas' {DM: TDataModule},
   USchemiIncompleti in 'USchemiIncompleti.pas' {frmSchemiIncompleti},
-  Ottimo in 'ClassiLegno\Ottimo.pas',
   UImpostazioni in 'UImpostazioni.pas' {frmImpostazioni},
   UNewCursalTypes in 'UNewCursalTypes.pas',
   UNotifications in 'UNotifications.pas' {frmNotifications},
@@ -33,7 +33,12 @@ uses
   USchemaPantografo in 'USchemaPantografo.pas',
   Vcl.Themes,
   Vcl.Styles,
-  UDMGO in 'UDMGO.pas' {DMGO: TDataModule};
+  UDMGO in 'UDMGO.pas' {DMGO: TDataModule},
+  UDDTInterface in '..\DDTPallets2\UDDTInterface.pas',
+  UGestGoContainer in '..\DDTPallets2\UGestGoContainer.pas' {GestGoContainer: TDataModule},
+  UGestionaleParams in '..\DDTPallets2\UGestionaleParams.pas' {dlgGoParams},
+  UMagClasses in 'UMagClasses.pas',
+  Ottimo in 'D:\Users\Bartolo\Documents\Embarcadero\Studio\Projects\Schede Lavorazione 2023\ClassiLegno\Ottimo.pas';
 
 {$R *.res}
 
@@ -50,6 +55,9 @@ begin
   Application.CreateForm(TfrmNotifications, frmNotifications);
   Application.CreateForm(TfrmFermiMacchina, frmFermiMacchina);
   Application.CreateForm(TfrmSelectParts, frmSelectParts);
+  Application.CreateForm(TdlgGoParams, dlgGoParams);
+  Application.CreateForm(TGestGoContainer, GestGoContainer);
   Application.Run;
 end.
+
 

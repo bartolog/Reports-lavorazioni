@@ -14,7 +14,7 @@ object DMGO: TDMGO
     EncryptedPassword = '9DFF9EFF8DFF8BFF90FF93FF90FF'
   end
   object MySQLUniProvider1: TMySQLUniProvider
-    Left = 328
+    Left = 264
     Top = 152
   end
   object qryMateriali: TUniQuery
@@ -23,11 +23,11 @@ object DMGO: TDMGO
       'SELECT CODICE , DESCRIZIONE1 FROM ART'
       'WHERE  TIN_CODICE = 2 AND LENGTH(trim(TIN_CODICE)) = 1;')
     Left = 168
-    Top = 264
+    Top = 248
   end
   object dsMateriali: TUniDataSource
     DataSet = qryMateriali
     Left = 272
-    Top = 264
+    Top = 248
   end
 end

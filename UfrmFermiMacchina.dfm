@@ -20,16 +20,9 @@ object frmFermiMacchina: TfrmFermiMacchina
     Height = 298
     Align = alClient
     TabOrder = 0
-    ExplicitWidth = 929
-    ExplicitHeight = 294
     object cxGrid1DBTableView1: TcxGridDBTableView
-      Navigator.Buttons.CustomButtons = <>
       Navigator.Visible = True
-      ScrollbarAnnotations.CustomAnnotations = <>
       DataController.DataSource = DM.srcFermiMacchina
-      DataController.Summary.DefaultGroupSummaryItems = <>
-      DataController.Summary.FooterSummaryItems = <>
-      DataController.Summary.SummaryGroups = <>
       OptionsData.Appending = True
       OptionsView.GroupByBox = False
       object cxGrid1DBTableView1idScheda: TcxGridDBColumn
@@ -43,9 +36,11 @@ object frmFermiMacchina: TfrmFermiMacchina
       end
       object cxGrid1DBTableView1Start: TcxGridDBColumn
         DataBinding.FieldName = 'Start'
+        PropertiesClassName = 'TcxTimeEditProperties'
       end
       object cxGrid1DBTableView1End: TcxGridDBColumn
         DataBinding.FieldName = 'End'
+        PropertiesClassName = 'TcxTimeEditProperties'
       end
       object cxGrid1DBTableView1Nota: TcxGridDBColumn
         DataBinding.FieldName = 'Nota'
@@ -57,7 +52,7 @@ object frmFermiMacchina: TfrmFermiMacchina
         Properties.Items.Strings = (
           'MANUTENZIONE'
           'ACCIDENTALE')
-        Width = 139
+        Width = 168
       end
     end
     object cxGrid1Level1: TcxGridLevel

@@ -1,7 +1,7 @@
 object MainForm: TMainForm
   Left = 0
   Top = 0
-  Caption = 'Schede lavorazione 2024'
+  Caption = 'Schede lavorazione 2026'
   ClientHeight = 577
   ClientWidth = 1208
   Color = clBtnFace
@@ -12,8 +12,10 @@ object MainForm: TMainForm
   Font.Height = -11
   Font.Name = 'Tahoma'
   Font.Style = []
+  KeyPreview = True
   OnClose = FormClose
   OnCreate = FormCreate
+  OnKeyDown = FormKeyDown
   OnShow = FormShow
   TextHeight = 13
   object stb1: TStatusBar
@@ -58,6 +60,7 @@ object MainForm: TMainForm
           end
           object grSchedeDBTableView1CodiceLavorazione: TcxGridDBColumn
             DataBinding.FieldName = 'CodiceLavorazione'
+            Width = 165
           end
           object grSchedeDBTableView1Turno: TcxGridDBColumn
             DataBinding.FieldName = 'Turno'
@@ -515,26 +518,40 @@ object MainForm: TMainForm
             TabOrder = 0
           end
           object cxButton1: TcxButton
-            Left = 183
+            Left = 216
             Top = 1
-            Width = 143
+            Width = 110
             Height = 63
             Align = alRight
             Action = actImpostazioni
             LookAndFeel.NativeStyle = False
             LookAndFeel.SkinName = 'McSkin'
+            OptionsImage.Layout = blGlyphTop
             TabOrder = 1
           end
           object btnFermiMacchina: TcxButton
-            Left = 1
+            Left = 96
             Top = 1
-            Width = 182
+            Width = 120
             Height = 63
-            Align = alClient
+            Align = alRight
             Action = actFermiMacchina
             LookAndFeel.NativeStyle = False
             LookAndFeel.SkinName = 'McSkin'
+            OptionsImage.Layout = blGlyphTop
             TabOrder = 2
+          end
+          object cxButton2: TcxButton
+            Left = 7
+            Top = 1
+            Width = 89
+            Height = 63
+            Align = alRight
+            Action = actScaricaMatPrima
+            LookAndFeel.NativeStyle = False
+            LookAndFeel.SkinName = 'McSkin'
+            OptionsImage.Layout = blGlyphTop
+            TabOrder = 3
           end
         end
         object cxDBSpinEdit1: TcxDBSpinEdit
@@ -556,7 +573,6 @@ object MainForm: TMainForm
         TabOrder = 1
         LookAndFeel.NativeStyle = False
         LookAndFeel.SkinName = 'LondonLiquidSky'
-        ExplicitTop = 111
         object cxGrid1DBTableView1: TcxGridDBTableView
           Navigator.Buttons.Images = imgListNavigator
           Navigator.Buttons.First.Visible = False
@@ -634,6 +650,7 @@ object MainForm: TMainForm
               item
                 FieldName = 'DESCRIZIONE1'
               end>
+            Properties.ListOptions.ShowHeader = False
             Properties.ListSource = DMGO.dsMateriali
             Width = 164
           end
@@ -1534,6 +1551,29 @@ object MainForm: TMainForm
           414427CBBD41ED4DF51B640D67CAD05EBA1F0000000049454E44AE426082}
         FileName = 'Images\Direction\RightLeft_16x16.png'
         Keywords = 'Direction;RightLeft'
+      end
+      item
+        ImageClass = 'TdxSmartImage'
+        Image.Data = {
+          3C3F786D6C2076657273696F6E3D22312E302220656E636F64696E673D225554
+          462D38223F3E0D0A3C7376672076657273696F6E3D22312E31222069643D224C
+          617965725F312220786D6C6E733D22687474703A2F2F7777772E77332E6F7267
+          2F323030302F7376672220786D6C6E733A786C696E6B3D22687474703A2F2F77
+          77772E77332E6F72672F313939392F786C696E6B2220783D223070782220793D
+          22307078222076696577426F783D2230203020333220333222207374796C653D
+          22656E61626C652D6261636B67726F756E643A6E657720302030203332203332
+          3B2220786D6C3A73706163653D227072657365727665223E262331333B262331
+          303B3C7374796C6520747970653D22746578742F6373732220786D6C3A737061
+          63653D227072657365727665223E2E426C61636B7B66696C6C3A233732373237
+          323B7D262331333B262331303B2623393B2E477265656E7B66696C6C3A233033
+          394332333B7D3C2F7374796C653E0D0A3C706F6C79676F6E20636C6173733D22
+          426C61636B2220706F696E74733D2232342C32322032342C323620382C323620
+          382C323220342C323220342C33302032382C33302032382C323220222F3E0D0A
+          3C706F6C79676F6E20636C6173733D22477265656E2220706F696E74733D2231
+          362C32322032342C31342031382C31342031382C322031342C322031342C3134
+          20382C313420222F3E0D0A3C2F7376673E0D0A}
+        FileName = 'DevAV\Actions\Download.svg'
+        Keywords = 'Actions;Download'
       end>
   end
   object RzVersionInfo1: TRzVersionInfo
@@ -2143,6 +2183,29 @@ object MainForm: TMainForm
           2112C5B8EAF85C7D64B345EF96A1F676CF96DDBB0ECC61BB0E883DFCCFD7E9D9
           D2A5C36164E16FD8D16FBE32A9C8627158C94BAFE0FF1946B78C22C4117A107A
           12E209D146893D0CC17F0161B32CB90E1B30110000000049454E44AE426082}
+      end
+      item
+        ImageClass = 'TdxSmartImage'
+        Image.Data = {
+          3C3F786D6C2076657273696F6E3D22312E302220656E636F64696E673D225554
+          462D38223F3E0D0A3C7376672076657273696F6E3D22312E31222069643D224C
+          617965725F312220786D6C6E733D22687474703A2F2F7777772E77332E6F7267
+          2F323030302F7376672220786D6C6E733A786C696E6B3D22687474703A2F2F77
+          77772E77332E6F72672F313939392F786C696E6B2220783D223070782220793D
+          22307078222076696577426F783D2230203020333220333222207374796C653D
+          22656E61626C652D6261636B67726F756E643A6E657720302030203332203332
+          3B2220786D6C3A73706163653D227072657365727665223E262331333B262331
+          303B3C7374796C6520747970653D22746578742F6373732220786D6C3A737061
+          63653D227072657365727665223E2E426C61636B7B66696C6C3A233732373237
+          323B7D262331333B262331303B2623393B2E477265656E7B66696C6C3A233033
+          394332333B7D3C2F7374796C653E0D0A3C706F6C79676F6E20636C6173733D22
+          426C61636B2220706F696E74733D2232342C32322032342C323620382C323620
+          382C323220342C323220342C33302032382C33302032382C323220222F3E0D0A
+          3C706F6C79676F6E20636C6173733D22477265656E2220706F696E74733D2231
+          362C32322032342C31342031382C31342031382C322031342C322031342C3134
+          20382C313420222F3E0D0A3C2F7376673E0D0A}
+        FileName = 'DevAV\Actions\Download.svg'
+        Keywords = 'Actions;Download'
       end>
   end
   object actsButtons: TActionManager
@@ -2159,6 +2222,11 @@ object MainForm: TMainForm
       Caption = 'Impostazioni'
       ImageIndex = 1
       OnExecute = actImpostazioniExecute
+    end
+    object actScaricaMatPrima: TAction
+      Caption = 'Scarica materiale'
+      ImageIndex = 2
+      OnExecute = actScaricaMatPrimaExecute
     end
   end
   object ApplicationEvents1: TApplicationEvents

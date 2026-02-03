@@ -105,7 +105,6 @@ object DM: TDM
     Database = 'falegnameria_fusti'
     Username = 'bartolo'
     Server = 'localhost'
-    Connected = True
     Left = 48
     Top = 24
     EncryptedPassword = '9DFF9EFF8DFF8BFF90FF93FF90FF'
@@ -457,8 +456,8 @@ object DM: TDM
         'solo per la troncatrice TRV220 e TRSI7500'
       ' HAVING RemainQta > 0 ;')
     MasterSource = srcSchedeLav
-    Left = 440
-    Top = 272
+    Left = 592
+    Top = 360
     ParamData = <
       item
         DataType = ftUnknown
@@ -559,6 +558,7 @@ object DM: TDM
     Top = 400
   end
   object srcFermiMacchina: TUniDataSource
+    DataSet = tblfermimacchina
     Left = 144
     Top = 216
   end
@@ -799,8 +799,8 @@ object DM: TDM
         'SELECT IF (MAX(RIGA) is null,0,MAX(RIGA)) +10 FROM righe_scheda_' +
         'lavorazione'
       'WHERE IDSCHEDA = :P_IDSCHEDA;')
-    Left = 520
-    Top = 528
+    Left = 512
+    Top = 520
     ParamData = <
       item
         DataType = ftUnknown
@@ -1248,5 +1248,87 @@ object DM: TDM
       FieldName = 'Tipo'
       Size = 12
     end
+  end
+  object qryGetMatGoByIdScheda: TUniQuery
+    Connection = connFal_Fusti
+    SQL.Strings = (
+      'SELECT'
+      '  rsl.IdScheda, '
+      '  rsl.CodiceMatGo,'
+      '  '
+      
+        '  sdl1.Materiale,CONCAT(sdl1.Materiale,'#39' '#39',SUBSTR(rsl.CodiceMatG' +
+        'o,4)) AS Descrizione,'
+      '  '
+      
+        '  SUM(rsl.Qta * sdl1.Dim_X_Pannello * 0.001 * sdl1.Dim_Y_Pannell' +
+        'o * 0.001) AS TMQ,'
+      
+        '  SUM(rsl.Qta * sdl1.Dim_X_Pannello * 0.001 * sdl1.Dim_Y_Pannell' +
+        'o * 0.001 * sdl1.Dim_Z_Pannello * 0.001) AS TMC'
+      ' '
+      '    '
+      ''
+      '  '
+      'FROM schede_di_lavorazione sdl'
+      '  INNER JOIN righe_scheda_lavorazione rsl'
+      '    ON sdl.IdScheda = rsl.IdScheda'
+      '  INNER JOIN schemi_di_lavorazione sdl1'
+      '    ON rsl.idSchema = sdl1.idSchema'
+      ''
+      'WHERE '
+      ''
+      ' sdl.IdScheda = :P_IDScheda'
+      ' and rsl.CodiceMatGo IS NOT NULL  '
+      ' and rsl.Riga_GO is  null'
+      ' and rsl.Progressivo_GO is  null'
+      ''
+      
+        'GROUP BY rsl.IdScheda, rsl.CodiceMatGo,  sdl1.Materiale, Descriz' +
+        'ione;')
+    Left = 680
+    Top = 488
+    ParamData = <
+      item
+        DataType = ftLargeint
+        Name = 'P_IDScheda'
+        Value = 11639
+      end>
+  end
+  object cmdSetGOCoordinate: TUniSQL
+    Connection = connFal_Fusti
+    SQL.Strings = (
+      'UPDATE righe_scheda_lavorazione rsl'
+      
+        'SET rsl.Riga_Go = :P_RIGA_GO, rsl.Progressivo_Go = :P_progressiv' +
+        'o_GO'
+      ''
+      ''
+      
+        'WHERE rsl.IdScheda = :P_IDScheda AND rsl.CodiceMatGo = :P_Codice' +
+        'MAtGO;')
+    Left = 680
+    Top = 544
+    ParamData = <
+      item
+        DataType = ftUnknown
+        Name = 'P_RIGA_GO'
+        Value = nil
+      end
+      item
+        DataType = ftUnknown
+        Name = 'P_progressivo_GO'
+        Value = nil
+      end
+      item
+        DataType = ftUnknown
+        Name = 'P_IDScheda'
+        Value = nil
+      end
+      item
+        DataType = ftUnknown
+        Name = 'P_CodiceMAtGO'
+        Value = nil
+      end>
   end
 end

@@ -39,7 +39,8 @@ uses
   dxPScxGridLnk, dxPScxGridLayoutViewLnk, dxPScxEditorProducers,
   dxPScxExtEditorProducers, dxPSContainerLnk, dxPSCore, dxPScxCommon,
   cxButtons, dxSkinWXI, Vcl.WinXCtrls, frxSmartMemo, frCoreClasses,
-  dxUIAClasses, cxDBLookupComboBox, UDMGO;
+  dxUIAClasses, cxDBLookupComboBox, UDMGO, UGestionaleParams, UDDTInterface,
+  UGestGoContainer, UMagClasses;
 
 type
 
@@ -213,6 +214,8 @@ type
     dxComponentPrinter1: TdxComponentPrinter;
     PrintGrid1: TdxGridReportLink;
     cxGrid1DBTableView1CodiceMatGo: TcxGridDBColumn;
+    cxButton2: TcxButton;
+    actScaricaMatPrima: TAction;
     procedure FormShow(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure Scheminoncompletati1Click(Sender: TObject);
@@ -250,6 +253,9 @@ type
     procedure actLoadSquadraExecute(Sender: TObject);
 
     procedure actFastLoadPantografoExecute(Sender: TObject);
+    procedure Action1Execute(Sender: TObject);
+    procedure actScaricaMatPrimaExecute(Sender: TObject);
+    procedure FormKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
 
   private
     { Private declarations }
@@ -436,9 +442,10 @@ begin
             procedure
             begin
 
-              cxGrid1DBTableView1.BeginUpdate()
+              cxGrid1DBTableView1.BeginUpdate()  ;
+               ActivityIndicator1.Animate := true;
             end);
-          ActivityIndicator1.Animate := true;
+
           try
             msg := 'Ci sono errori su i seguenti schemi : ';
             IsThereErrors := False;
@@ -894,6 +901,168 @@ begin
   frmFermiMacchina.ShowModal
 end;
 
+procedure TMainForm.Action1Execute(Sender: TObject);
+var
+  MatQta: Double;
+begin
+  // todo :
+  // ottenere i codici della materia prima dalla query (qryGetMatGoByIdScheda)
+  // creare una lista :  TMateriePrime = Tlist<IDDTItem>;
+  // dove ogni elemento viene creato dalla classe :
+  // TMat_Prima ( Create(aCode, adescr: string; aQta: double; aIdMacchina: Integer;
+  // aDataScheda: Tdate); )
+  // chiamare la procedura REGISTRADDT(TDDT_SCPR.Create(aListMat: TMateriePrime);
+  // del modulo (UgestGOContainer)
+
+  with dm.qryGetMatGoByIdScheda, dm do
+  begin
+    Close;
+    ParamByName('P_IDScheda').Value := tblSchedeLavIdScheda.Value;
+    Open;
+    var
+    aMatList := TMateriePrime.Create;
+    while not Eof do
+    begin
+
+      MatQta := FieldByName('TMQ').AsFloat;
+
+      if (FieldByName('Materiale').AsString = 'abete') or
+        (FieldByName('Materiale').AsString = 'faggio')
+
+      then
+
+        MatQta := FieldByName('TMC').AsFloat;
+
+      aMatList.Add(TMat_Prima.Create(FieldByName('CodiceMatGO').AsString,
+        FieldByName('Descrizione').AsString, MatQta,
+        tblSchedeLavidMacchina.AsInteger, tblSchedeLavData.AsDateTime
+
+        ));
+
+      next
+    end;
+
+    with GestGoContainer do
+      RegistraDDT(TDDT_SCPR.Create(aMatList));
+
+  end;
+
+end;
+
+procedure TMainForm.actScaricaMatPrimaExecute(Sender: TObject);
+var
+  MatQta: Double;
+begin
+  // todo :
+  // ottenere i codici della materia prima dalla query (qryGetMatGoByIdScheda)
+  // creare una lista :  TMateriePrime = Tlist<IDDTItem>;
+  // dove ogni elemento viene creato dalla classe :
+  // TMat_Prima ( Create(aCode, adescr: string; aQta: double; aIdMacchina: Integer;
+  // aDataScheda: Tdate); )
+  // chiamare la procedura REGISTRADDT(TDDT_SCPR.Create(aListMat: TMateriePrime);
+  // del modulo (UgestGOContainer)
+
+  with TTaskDialog.Create(nil) do
+    try
+      MainIcon := tdiWarning;
+      Title := 'Materiale magazzino gestionale';
+      Text := 'Procedere con lo scarico ?';
+
+      CommonButtons := [];
+
+      with TTaskDialogButtonItem(Buttons.Add) do
+      begin
+        Caption := 'No';
+        ModalResult := mrNo;
+      end;
+
+      with TTaskDialogButtonItem(Buttons.Add) do
+      begin
+        Caption := 'Sì';
+        ModalResult := mrYes;
+      end;
+
+      execute;
+
+      if ModalResult = mrNo then
+        Exit;
+
+    finally
+      Free
+    end;
+
+  with dm.qryGetMatGoByIdScheda, dm do
+  begin
+    Close;
+    ParamByName('P_IDScheda').Value := tblSchedeLavIdScheda.Value;
+    Open;
+    var
+    aMatList := TMateriePrime.Create;
+    try
+      while not Eof do
+      begin
+
+        MatQta := FieldByName('TMQ').AsFloat;
+
+        if (FieldByName('Materiale').AsString = 'abete') or
+          (FieldByName('Materiale').AsString = 'faggio')
+
+        then
+
+          MatQta := FieldByName('TMC').AsFloat;
+
+        aMatList.Add(TMat_Prima.Create(FieldByName('CodiceMatGO').AsString,
+          FieldByName('Descrizione').AsString, MatQta,
+          tblSchedeLavidMacchina.AsInteger, tblSchedeLavData.AsDateTime
+
+          ));
+
+        next
+      end;
+
+      if aMatList.Count > 0 then
+      with GestGoContainer do
+        RegistraDDT(TDDT_SCPR.Create(aMatList));
+
+      // prima di liberare tutto il dettaglio (dati materie prime)
+      // posso regitrare le coordinate doc di go (riga e progressivo)
+      // di ritorno  nelle righe della scheda
+      for var i in aMatList do
+        with dm.cmdSetGOCoordinate do
+        begin
+          var
+          a := i.GetCoordinateGestionale;
+          ParamByName('P_RIGA_GO').Value := a[1]; // riga go
+          ParamByName('P_progressivo_GO').Value := a[0]; // progressivo GO
+          ParamByName('P_IDScheda').Value := tblSchedeLavIdScheda.Value;
+          ParamByName('P_CodiceMAtGO').Value := i.CodiceArticolo;
+          // codice materiale go
+          Execute
+
+        end;
+
+      with TTaskDialog.Create(nil) do
+      begin
+        try
+          Caption := 'Schede lavorazione 2026';
+          MainIcon := tdiInformation;
+          Title := 'Gestione materiale magazzino';
+          Text := format('Operazione eseguita correttamente : %d articoli scaricati',[aMatList.Count]);
+          CommonButtons := [tcbOk];
+          execute
+
+        finally
+          Free
+        end;
+      end;
+
+    finally
+      aMatList.Free
+    end;
+
+  end;
+
+end;
 // procedure TMainForm.actReadTotalsExecute(Sender: TObject);
 //
 // var
@@ -1269,10 +1438,13 @@ begin
       s := o.Schemi[i];
       with dm do
       begin
+
         p := 1;
         if o.Tipo = tpSezionatrice then
           p := frmImpostazioni.ListaPacchiGabbiani.Values
             [o.GetMaterialeCompleto].ToInteger();
+
+
 
         if o.Tipo = tpTroncatrice then
           p := (Trunc(frmImpostazioni.edMaxWidthCursal.Value / s.Pannello_Dim_Y)
@@ -1714,6 +1886,14 @@ begin
 
 end;
 
+procedure TMainForm.FormKeyDown(Sender: TObject; var Key: Word;
+Shift: TShiftState);
+begin
+  if ((Key = Ord('g')) or (Key = Ord('G'))) and (Shift = [ssShift, ssCtrl]) then
+    dlgGoParams.ShowModal
+
+end;
+
 procedure TMainForm.FormShow(Sender: TObject);
 
 var
@@ -2048,8 +2228,8 @@ begin
 
   PrintGrid1.ReportTitle.TextAlignX := taLeft;
   PrintGrid1.ReportTitle.Text := 'Data : ' + cxDBDateEdit1.Text + ' Turno : ' +
-    dbcmbTurno.Text + ' [' + cxDBMaskEdit1.Text + ' ' + cxDBMaskEdit2.Text +
-    ']' + #10#13 +
+    dbcmbTurno.Text + ' [' + cxDBMaskEdit1.Text + ' ' + cxDBMaskEdit2.Text + ']'
+    + #10#13 +
 
     'Macchina : ' + cmbMacchina.Text + #10#13 + 'Operatore : ' +
     cmbOperatori.Text + #10#13;

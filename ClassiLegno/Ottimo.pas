@@ -4,7 +4,7 @@ interface
 
 // info versione : 21/05/2017
 
-uses classes, contnrs, sysutils, Windows, dialogs, USchedeLavTypes;
+uses classes, contnrs, sysutils, Windows, dialogs;
 
 type
   TBis_Numero = 0 .. 9;
@@ -195,41 +195,6 @@ type
     function GetTotMQNEtto: Double;
     function GetMaterialeCompleto: string;
 
-
-    // ********** interfaccia ISCHEMA *************
-//
-//    function GetNome: string;
-//    function GetHash: string;
-//    function GetPannello: TPannello;
-//    function GetGeos: TGeosSchema;
-//    function GetPannelli: Integer;
-//    function GetNumTeste: Integer;
-//    function GetNumeroSchema: Integer;
-//    function GetIdMacchina: Integer;
-//    function GetCodiceLavorazione: string;
-//    function GetModelli(aMapListClientsAndLetter : TStringList): string;
-//    function GetSfrido : Double;
-//    function GetNettoMQ : Double;
-//    function GetPacco : integer;
-//    function GetPathFresa : double;
-//    function GetTempoTaglio : double;
-
-
-
-
-
-
-
-
-
-
-
-    // *********** fine interfaccia ISCHEMA
-
-
-
-
-
     property StringTagli[index: integer]: string read GetStringCuts;
     property NomeCommessa: string read FNome;
     property DataCommessa: TDateTime read FDataCommessa;
@@ -277,14 +242,20 @@ destructor TSchemaTaglio.Destroy;
 var
   i: integer;
 begin
+  if assigned(FPezzi) then
+  begin
+    for i := 0 to FTagli.Count - 1 do // ? boh ho trovato questo ...strano
+      Dispose(FPezzi[i]);
+    FPezzi.Free;
+  end;
+
   if assigned(FTagli) then
+  begin
     for i := 0 to FTagli.Count - 1 do
       Dispose(FTagli[i]);
-  FTagli.Free;
-  if assigned(FPezzi) then
-    for i := 0 to FTagli.Count - 1 do
-      Dispose(FPezzi[i]);
-  FPezzi.Free;
+    FTagli.Free;
+
+  end;
 
   inherited Destroy;
 end;
@@ -663,14 +634,14 @@ begin
   Fls := TStringList.Create;
 
   reset(c);
-  try
-    L := '';
-    read(c, ch);
-    L := L + ch;
-    read(c, ch);
-    L := L + ch;
-    FDime := TList.Create;
 
+  L := '';
+  read(c, ch);
+  L := L + ch;
+  read(c, ch);
+  L := L + ch;
+  FDime := TList.Create;
+  try
     if not(L = 'F0') then
       raise exception.Create('Non è un commessa di ottimo');
 
@@ -817,20 +788,10 @@ begin
   Result := TSchemaTaglio(FSchemi.Items[index]);
 end;
 
-//function TCommessaOttimo.GetSfrido: Double;
-//begin
-// result :=   self.GetSfrido
-//end;
-
 function TCommessaOttimo.GetStringCuts(index: integer): string;
 begin
   Result := Fls[index];
 end;
-
-//function TCommessaOttimo.GetTempoTaglio: double;
-//begin
-//    result := GetTempoTaglio
-//end;
 
 function TCommessaOttimo.GetTotMQNEtto: Double;
 var
@@ -1189,11 +1150,6 @@ begin
   Result := MqNetto * FPz * 0.001;
 end;
 
-//function TCommessaOttimo.GetCodiceLavorazione: string;
-//begin
-//
-//end;
-
 function TCommessaOttimo.GetDima(index: integer): PDima;
 begin
   Result := PDima(FDime[index]);
@@ -1242,21 +1198,6 @@ begin
     Result := FDime[i - 1];
 
 end;
-
-//function TCommessaOttimo.GetGeos: TGeosSchema;
-//begin
-//
-//end;
-//
-//function TCommessaOttimo.GetHash: string;
-//begin
-//
-//end;
-//
-//function TCommessaOttimo.GetIdMacchina: Integer;
-//begin
-//
-//end;
 
 function TCommessaOttimo.GetMaterialeCompleto: string;
 begin
@@ -1349,46 +1290,6 @@ begin
     Result := Result + PDima(FDime[i])^.r - PDima(FDime[i])^.q;
 
 end;
-
-//function TCommessaOttimo.GetNettoMQ: Double;
-//begin
-//    result := self.GetNettoMQ
-//end;
-//
-//function TCommessaOttimo.GetNome: string;
-//begin
-//    result := self.NomeCommessa
-//end;
-//
-//function TCommessaOttimo.GetNumeroSchema: Integer;
-//begin
-//    result := self.FSchemi
-//end;
-//
-//function TCommessaOttimo.GetNumTeste: Integer;
-//begin
-//
-//end;
-//
-//function TCommessaOttimo.GetPacco: integer;
-//begin
-//
-//end;
-//
-//function TCommessaOttimo.GetPannelli: Integer;
-//begin
-//
-//end;
-//
-//function TCommessaOttimo.GetPannello: TPannello;
-//begin
-//
-//end;
-//
-//function TCommessaOttimo.GetPathFresa: double;
-//begin
-//
-//end;
 
 function TCommessaOttimo.GetProgramma: string;
 var

@@ -25,7 +25,7 @@ uses
   cxFilter, cxData, cxDataStorage, cxEdit, cxNavigator, dxDateRanges,
   dxScrollbarAnnotations, Data.DB, cxDBData, cxGridCustomTableView,
   cxGridTableView, cxGridDBTableView, cxGridLevel, cxClasses, cxGridCustomView,
-  cxGrid, cxDropDownEdit;
+  cxGrid, cxDropDownEdit, cxTimeEdit;
 
 type
   TfrmFermiMacchina = class(TForm)

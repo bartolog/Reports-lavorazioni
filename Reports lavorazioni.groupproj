@@ -3,7 +3,7 @@
         <ProjectGuid>{506B8454-1D56-4196-AF7A-37DCCB5B24D6}</ProjectGuid>
     </PropertyGroup>
     <ItemGroup>
-        <Projects Include="SchedeLav_2025.dproj">
+        <Projects Include="SchedeLav_2026.dproj">
             <Dependencies/>
         </Projects>
         <Projects Include="..\DoMag\DoMag.dproj">
@@ -17,14 +17,14 @@
             <Default.Personality/>
         </BorlandProject>
     </ProjectExtensions>
-    <Target Name="SchedeLav_2025">
-        <MSBuild Projects="SchedeLav_2025.dproj"/>
+    <Target Name="SchedeLav_2026">
+        <MSBuild Projects="SchedeLav_2026.dproj"/>
     </Target>
-    <Target Name="SchedeLav_2025:Clean">
-        <MSBuild Projects="SchedeLav_2025.dproj" Targets="Clean"/>
+    <Target Name="SchedeLav_2026:Clean">
+        <MSBuild Projects="SchedeLav_2026.dproj" Targets="Clean"/>
     </Target>
-    <Target Name="SchedeLav_2025:Make">
-        <MSBuild Projects="SchedeLav_2025.dproj" Targets="Make"/>
+    <Target Name="SchedeLav_2026:Make">
+        <MSBuild Projects="SchedeLav_2026.dproj" Targets="Make"/>
     </Target>
     <Target Name="DoMag">
         <MSBuild Projects="..\DoMag\DoMag.dproj"/>
@@ -36,13 +36,13 @@
         <MSBuild Projects="..\DoMag\DoMag.dproj" Targets="Make"/>
     </Target>
     <Target Name="Build">
-        <CallTarget Targets="SchedeLav_2025;DoMag"/>
+        <CallTarget Targets="SchedeLav_2026;DoMag"/>
     </Target>
     <Target Name="Clean">
-        <CallTarget Targets="SchedeLav_2025:Clean;DoMag:Clean"/>
+        <CallTarget Targets="SchedeLav_2026:Clean;DoMag:Clean"/>
     </Target>
     <Target Name="Make">
-        <CallTarget Targets="SchedeLav_2025:Make;DoMag:Make"/>
+        <CallTarget Targets="SchedeLav_2026:Make;DoMag:Make"/>
     </Target>
     <Import Project="$(BDS)\Bin\CodeGear.Group.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Group.Targets')"/>
 </Project>
