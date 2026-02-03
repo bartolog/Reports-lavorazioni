@@ -38,7 +38,8 @@ uses
   UGestGoContainer in '..\DDTPallets2\UGestGoContainer.pas' {GestGoContainer: TDataModule},
   UGestionaleParams in '..\DDTPallets2\UGestionaleParams.pas' {dlgGoParams},
   UMagClasses in 'UMagClasses.pas',
-  Ottimo in 'D:\Users\Bartolo\Documents\Embarcadero\Studio\Projects\Schede Lavorazione 2023\ClassiLegno\Ottimo.pas';
+  Ottimo in 'D:\Users\Bartolo\Documents\Embarcadero\Studio\Projects\Schede Lavorazione 2023\ClassiLegno\Ottimo.pas',
+  UTilities in 'UTilities.pas';
 
 {$R *.res}
 

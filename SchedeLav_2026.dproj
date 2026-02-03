@@ -46,6 +46,12 @@
         <Cfg_2>true</Cfg_2>
         <Base>true</Base>
     </PropertyGroup>
+    <PropertyGroup Condition="('$(Platform)'=='Win64' and '$(Cfg_2)'=='true') or '$(Cfg_2_Win64)'!=''">
+        <Cfg_2_Win64>true</Cfg_2_Win64>
+        <CfgParent>Cfg_2</CfgParent>
+        <Cfg_2>true</Cfg_2>
+        <Base>true</Base>
+    </PropertyGroup>
     <PropertyGroup Condition="'$(Base)'!=''">
         <DCC_DcuOutput>.\$(Platform)\$(Config)</DCC_DcuOutput>
         <DCC_ExeOutput>.\$(Platform)\$(Config)</DCC_ExeOutput>
@@ -73,13 +79,9 @@
         <VerInfo_Keys>CompanyName=;FileDescription=$(MSBuildProjectName);FileVersion=1.0.0.0;InternalName=;LegalCopyright=;LegalTrademarks=;OriginalFilename=;ProgramID=com.embarcadero.$(MSBuildProjectName);ProductName=$(MSBuildProjectName);ProductVersion=1.0.0.0;Comments=</VerInfo_Keys>
         <VerInfo_Locale>1033</VerInfo_Locale>
         <Manifest_File>$(BDS)\bin\default_app.manifest</Manifest_File>
-        <Defines>EUREKALOG;$(Defines)</Defines>
-        <DCC_Define>EUREKALOG;$(DCC_Define)</DCC_Define>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Base_Win64)'!=''">
         <DCC_UsePackage>DBXSqliteDriver;dxFlowChartRS26;dxPSdxMapControlLnkRS26;DBXDb2Driver;vclactnband;dxBarRS26;vclFireDAC;dxFireDACEMFRS26;tethering;dxSpreadSheetInplaceRichEditRS26;FireDACADSDriver;dxRichEditCoreRS26;dxPSdxSpreadSheetLnkRS26;FireDACMSSQLDriver;vcltouch;NxDBGrid6Run_d10_3;vcldb;dxPSTeeChartRS26;dxGDIPlusRS26;dxPSdxFCLnkRS26;vclib;dxCloudServiceLibraryRS26;dxPSLnksRS26;FireDACDBXDriver;cxGridRS26;dxPsPrVwAdvRS26;dxPDFViewerRS26;vclx;dxPScxTLLnkRS26;RESTBackendComponents;NxCollectionRun_d10_3;VCLRESTComponents;vclie;bindengine;CloudService;dxmdsRS26;FireDACMySQLDriver;NxLayout6Run_d10_3;dxdborRS26;DataSnapClient;dxFireDACServerModeRS26;bindcompdbx;DBXSybaseASEDriver;IndyIPServer;cxPivotGridRS26;IndySystem;NxInspector6Run_d10_3;cxTreeListdxBarPopupMenuRS26;dsnapcon;cxTreeListRS26;dxPScxPivotGridLnkRS26;cxSchedulerRibbonStyleEventEditorRS26;dxPSCoreRS26;FireDACMSAccDriver;fmxFireDAC;FireDACInfxDriver;vclimg;dxSpreadSheetRS26;dxBarExtItemsRS26;dxPSdxGaugeControlLnkRS26;emshosting;tmsdXE12;DBXOdbcDriver;FireDACTDataDriver;FMXTee;dxRichEditControlCoreRS26;soaprtl;DbxCommonDriver;dxdbtrRS26;dxFlowChartAdvancedCustomizeFormRS26;dxDockingRS26;xmlrtl;soapmidas;DataSnapNativeClient;fmxobj;cxLibraryRS26;rtl;emsserverresource;DbxClientDriver;DBXSybaseASADriver;dxPScxSchedulerLnkRS26;dxSpreadSheetConditionalFormattingDialogsRS26;appanalytics;dxRibbonCustomizationFormRS26;cxSchedulerGridRS26;IndyIPClient;bindcompvcl;dxFlowChartLayoutsRS26;TeeUI;dxADOEMFRS26;VclSmp;NxCollection6Run_d10_3;FireDACODBCDriver;dxRibbonRS26;DataSnapIndy10ServerTransport;dxPScxCommonRS26;dxRichEditDocumentModelRS26;DataSnapProviderClient;NxCommonRun_d10_3;FireDACMongoDBDriver;dxFlowChartDesignerRS26;dxPScxGridLnkRS26;dxSpreadSheetCoreRS26;DataSnapServerMidas;RESTComponents;DBXInterBaseDriver;dxPScxExtCommonRS26;emsclientfiredac;DataSnapFireDAC;DBXMSSQLDriver;dxRichEditControlRS26;DatasnapConnectorsFreePascal;dxGaugeControlRS26;dxorgcRS26;dxPScxVGridLnkRS26;bindcompfmx;DBXOracleDriver;inetdb;dxBarDBNavRS26;dxDBXServerModeRS26;RaizeComponentsVcl;FmxTeeUI;emsedge;RaizeComponentsVclDb;FireDACIBDriver;fmx;fmxdae;dxServerModeRS26;dxWizardControlRS26;QRWRunDXE10_3_w64;NxGridRun_d10_3;dxTabbedMDIRS26;NxGrid6Run_d10_3;dxEMFRS26;dbexpress;IndyCore;NxStandard6Run_d10_3;dxComnRS26;dsnap;DataSnapCommon;emsclient;FireDACCommon;DataSnapConnectors;cxSchedulerTreeBrowserRS26;dxADOServerModeRS26;soapserver;cxPivotGridOLAPRS26;cxVerticalGridRS26;dxtrmdRS26;FireDACOracleDriver;DBXMySQLDriver;cxSchedulerRS26;cxSchedulerWebServiceStorageRS26;dxPSdxLCLnkRS26;DBXFirebirdDriver;FireDACCommonODBC;FireDACCommonDriver;dxMapControlRS26;inet;dxSpellCheckerRS26;IndyIPCommon;dxSpreadSheetCoreConditionalFormattingDialogsRS26;vcl;dxPSdxDBOCLnkRS26;FireDACDb2Driver;dxSpreadSheetReportDesignerRS26;NxDBGridRun_d10_3;dxPScxPCProdRS26;dxNavBarRS26;tmsxlsdXE12;dxCoreRS26;cxExportRS26;TeeDB;FireDAC;dxHttpIndyRequestRS26;dxPSPrVwRibbonRS26;FireDACSqliteDriver;FireDACPgDriver;ibmonitor;FireDACASADriver;dxPSRichEditControlLnkRS26;cxPivotGridChartRS26;NxInspectorRun_d10_3;dxPSDBTeeChartRS26;ibxpress;Tee;DataSnapServer;ibxbindings;dxPSdxDBTVLnkRS26;vclwinx;FireDACDSDriver;dxTileControlRS26;tmsexdXE12;dxSkinsCoreRS26;CustomIPTransport;vcldsnap;bindcomp;dxPSdxOCLnkRS26;DBXInformixDriver;dbxcds;adortl;dxSpreadSheetCoreDialogsRS26;dxBarExtDBItemsRS26;dsnapxml;dbrtl;inetdbxpress;IndyProtocols;dxPSdxPDFViewerLnkRS26;dxRichEditInplaceRS26;fmxase;$(DCC_UsePackage)</DCC_UsePackage>
-        <Defines>EUREKALOG;$(Defines)</Defines>
-        <DCC_Define>EUREKALOG;$(DCC_Define)</DCC_Define>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_1)'!=''">
         <DCC_Define>DEBUG;DEBUG_EL_CODE;$(DCC_Define)</DCC_Define>
@@ -102,7 +104,6 @@
         <DCC_LocalDebugSymbols>false</DCC_LocalDebugSymbols>
         <DCC_Define>RELEASE;$(DCC_Define)</DCC_Define>
         <DCC_SymbolReferenceInfo>0</DCC_SymbolReferenceInfo>
-        <DCC_DebugInformation>0</DCC_DebugInformation>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_2_Win32)'!=''">
         <AppDPIAwarenessMode>PerMonitorV2</AppDPIAwarenessMode>
@@ -112,9 +113,14 @@
         <VerInfo_IncludeVerInfo>true</VerInfo_IncludeVerInfo>
         <VerInfo_Locale>1033</VerInfo_Locale>
         <Icon_MainIcon>SchedeLav_Icon1.ico</Icon_MainIcon>
-        <DCC_Define>madExcept;LeakChecking;$(DCC_Define)</DCC_Define>
+        <DCC_Define>madExcept;LeakChecking;EUREKALOG;$(DCC_Define)</DCC_Define>
         <VerInfo_MajorVer>2</VerInfo_MajorVer>
         <VerInfo_Keys>CompanyName=;FileDescription=$(MSBuildProjectName);FileVersion=2.0.0.0;InternalName=;LegalCopyright=;LegalTrademarks=;OriginalFilename=;ProgramID=com.embarcadero.$(MSBuildProjectName);ProductName=$(MSBuildProjectName);ProductVersion=1.0.0.0;Comments=</VerInfo_Keys>
+        <Defines>EUREKALOG;$(Defines)</Defines>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(Cfg_2_Win64)'!=''">
+        <Defines>EUREKALOG;$(Defines)</Defines>
+        <DCC_Define>EUREKALOG;$(DCC_Define)</DCC_Define>
     </PropertyGroup>
     <ItemGroup>
         <DelphiCompile Include="$(MainSource)">
@@ -165,6 +171,7 @@
         </DCCReference>
         <DCCReference Include="UMagClasses.pas"/>
         <DCCReference Include="D:\Users\Bartolo\Documents\Embarcadero\Studio\Projects\Schede Lavorazione 2023\ClassiLegno\Ottimo.pas"/>
+        <DCCReference Include="UTilities.pas"/>
         <BuildConfiguration Include="Base">
             <Key>Base</Key>
         </BuildConfiguration>

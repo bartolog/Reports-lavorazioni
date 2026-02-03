@@ -1,0 +1,18 @@
+﻿[update]
+newversion=2.1.0.0
+localversion=SchedeLav_2026.exe
+
+[files]
+count=1
+
+[file1]
+url=C:\Apps_AutoUpdate\Schede lavorazioni/SchedeLav_2026.exe_NEW
+newversion=2.1.0.0
+localversion=SchedeLav_2026.exe
+filesize=82731008
+
+[application]
+appupdate=1
+appname=SchedeLav_2026.exe
+appcomps=SchedeLav_2026.exe_NEW
+

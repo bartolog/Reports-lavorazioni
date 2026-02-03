@@ -40,7 +40,7 @@ uses
   dxPScxExtEditorProducers, dxPSContainerLnk, dxPSCore, dxPScxCommon,
   cxButtons, dxSkinWXI, Vcl.WinXCtrls, frxSmartMemo, frCoreClasses,
   dxUIAClasses, cxDBLookupComboBox, UDMGO, UGestionaleParams, UDDTInterface,
-  UGestGoContainer, UMagClasses;
+  UGestGoContainer, UMagClasses, WUpdate;
 
 type
 
@@ -216,6 +216,8 @@ type
     cxGrid1DBTableView1CodiceMatGo: TcxGridDBColumn;
     cxButton2: TcxButton;
     actScaricaMatPrima: TAction;
+    WebUpdate1: TWebUpdate;
+    btnUpdate: TcxButton;
     procedure FormShow(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure Scheminoncompletati1Click(Sender: TObject);
@@ -256,6 +258,7 @@ type
     procedure Action1Execute(Sender: TObject);
     procedure actScaricaMatPrimaExecute(Sender: TObject);
     procedure FormKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
+    procedure btnUpdateClick(Sender: TObject);
 
   private
     { Private declarations }
@@ -294,7 +297,7 @@ uses
   UDM, UalphacamReport, USchemiIncompleti, Ottimo, UImpostazioni, System.Types,
   System.IOUtils, UNotifications, UfrmFermiMacchina, dxCore,
   UTRSITotali, USelectParts, AlphaCamPreviewUnit, UTRVCursal, USchemaPantografo,
-  USchedeLavTypes, System.Threading;
+  USchedeLavTypes, System.Threading, UTilities;
 
 {$R *.dfm}
 
@@ -442,8 +445,8 @@ begin
             procedure
             begin
 
-              cxGrid1DBTableView1.BeginUpdate()  ;
-               ActivityIndicator1.Animate := true;
+              cxGrid1DBTableView1.BeginUpdate();
+              ActivityIndicator1.Animate := true;
             end);
 
           try
@@ -1021,8 +1024,8 @@ begin
       end;
 
       if aMatList.Count > 0 then
-      with GestGoContainer do
-        RegistraDDT(TDDT_SCPR.Create(aMatList));
+        with GestGoContainer do
+          RegistraDDT(TDDT_SCPR.Create(aMatList));
 
       // prima di liberare tutto il dettaglio (dati materie prime)
       // posso regitrare le coordinate doc di go (riga e progressivo)
@@ -1037,7 +1040,7 @@ begin
           ParamByName('P_IDScheda').Value := tblSchedeLavIdScheda.Value;
           ParamByName('P_CodiceMAtGO').Value := i.CodiceArticolo;
           // codice materiale go
-          Execute
+          execute
 
         end;
 
@@ -1047,7 +1050,9 @@ begin
           Caption := 'Schede lavorazione 2026';
           MainIcon := tdiInformation;
           Title := 'Gestione materiale magazzino';
-          Text := format('Operazione eseguita correttamente : %d articoli scaricati',[aMatList.Count]);
+          Text := Format
+            ('Operazione eseguita correttamente : %d articoli scaricati',
+            [aMatList.Count]);
           CommonButtons := [tcbOk];
           execute
 
@@ -1418,6 +1423,17 @@ begin
 
 end;
 
+procedure TMainForm.btnUpdateClick(Sender: TObject);
+begin
+  with WebUpdate1 do
+  begin
+    if NewVersionAvailable then
+      if Ask('Vuoi aggiornare?', 'Aggiornamento', 'Nuova versione') = mrOk  then
+        DoUpdate;
+
+  end;
+end;
+
 procedure TMainForm.CaricaCommessaOttimo(f: string);
 var
   o: TCommessaOttimo;
@@ -1441,10 +1457,19 @@ begin
 
         p := 1;
         if o.Tipo = tpSezionatrice then
-          p := frmImpostazioni.ListaPacchiGabbiani.Values
-            [o.GetMaterialeCompleto].ToInteger();
+          try
+            p := frmImpostazioni.ListaPacchiGabbiani.Values
+              [o.GetMaterialeCompleto].ToInteger();
 
+          except
+            on E: Exception do
+            begin
+              Info(Format('pannello %s non trovato', [o.GetMaterialeCompleto]));
+              Exit
 
+            end;
+
+          end;
 
         if o.Tipo = tpTroncatrice then
           p := (Trunc(frmImpostazioni.edMaxWidthCursal.Value / s.Pannello_Dim_Y)
@@ -1903,7 +1928,7 @@ begin
   p := ExtractFilePath(Application.ExeName);
 
   if RzVersionInfo1.VersionInfoAvailable then
-    Caption := 'Schede lavorazione ver.' + RzVersionInfo1.ProductVersion +
+    Caption := 'Schede lavorazione ver.' + RzVersionInfo1.FileVersion +
       ' -- Server : ' + dm.connFal_Fusti.Server + '  database :' +
       dm.connFal_Fusti.Database;
 
