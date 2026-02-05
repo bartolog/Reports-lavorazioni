@@ -13,6 +13,7 @@ object DM: TDM
     AfterClose = tblSchedeLavAfterClose
     AfterPost = tblSchedeLavAfterPost
     AfterScroll = tblSchedeLavAfterScroll
+    OnCalcFields = tblSchedeLavCalcFields
     OnNewRecord = tblSchedeLavNewRecord
     Left = 48
     Top = 80
@@ -97,6 +98,11 @@ object DM: TDM
     end
     object tblSchedeLavNumOperatori: TShortintField
       FieldName = 'NumOperatori'
+    end
+    object tblSchedeLavOkScarico: TBooleanField
+      FieldKind = fkCalculated
+      FieldName = 'OkScarico'
+      Calculated = True
     end
   end
   object connFal_Fusti: TUniConnection
@@ -1218,12 +1224,6 @@ object DM: TDM
     OnNewRecord = tblFermiMacchina_oldNewRecord
     Left = 48
     Top = 288
-    ParamData = <
-      item
-        DataType = ftUnknown
-        Name = 'IdScheda'
-        Value = nil
-      end>
     object tblfermimacchinaidScheda: TLargeintField
       FieldName = 'idScheda'
       Required = True

@@ -4,10 +4,11 @@ interface
 
 uses
   System.SysUtils, System.Classes, Data.DB, DBAccess, Uni, DASQLMonitor,
-  UniSQLMonitor, UniDacVcl,    MySQLUniProvider,    MemDS,
-     UTRVCursal, USchedeLavTypes, UniProvider;
+  UniSQLMonitor, UniDacVcl, MySQLUniProvider, MemDS,
+  UTRVCursal, USchedeLavTypes, UniProvider, TMSLogging;
 
 type
+  TArrayofinteger = array of integer;
 
   TDM = class(TDataModule)
     tblSchedeLav: TUniTable;
@@ -139,6 +140,7 @@ type
     tblfermimacchinaTipo: TStringField;
     qryGetMatGoByIdScheda: TUniQuery;
     cmdSetGOCoordinate: TUniSQL;
+    tblSchedeLavOkScarico: TBooleanField;
     procedure tblSchedeLavNewRecord(DataSet: TDataSet);
     procedure tblSchedeLavTurnoChange(Sender: TField);
     procedure tblSchedeLavMacchinaChange(Sender: TField);
@@ -164,10 +166,11 @@ type
     procedure tblFermiMacchina_oldAfterDelete(DataSet: TDataSet);
     procedure qrySelectPartslavorazioniGetText(Sender: TField; var Text: string;
       DisplayText: Boolean);
+    procedure tblSchedeLavCalcFields(DataSet: TDataSet);
   private
     { Private declarations }
-    NRIGA: Integer; // VALORE RIGA PER LE VOCI DELLA SCHEDA
-    QtaRiga: Integer; // il valore corrente della qta della riga corrente
+    NRIGA: integer; // VALORE RIGA PER LE VOCI DELLA SCHEDA
+    QtaRiga: integer; // il valore corrente della qta della riga corrente
     FIdMacchina: SmallInt;
     v: TFieldNotifyEvent;
     FOnSchedeScrolling: TNotifyEvent;
@@ -187,6 +190,9 @@ type
     function RegistraSchemiTroncatrice(ListaSchemiTroncatrice
       : TSchemiTRV): Boolean;
     procedure RegistraSchema(aSchema: Ischema);
+    function HasDownloadMaterial(aIdScheda: integer): Boolean;
+    function GetProgressiviGoByIdScheda(aIdScheda: integer): TArrayofinteger;
+    procedure ResetCoordinateGo(aIdScheda: integer);
   end;
 
 var
@@ -266,11 +272,82 @@ begin
 
 end;
 
+function TDM.GetProgressiviGoByIdScheda(aIdScheda: integer): TArrayofinteger;
+begin
+  var
+    q: TUniQuery;
+  begin
+    q := TUniQuery.Create(nil);
+    try
+      q.Connection := connFal_Fusti;
+      q.SQL.Text := '''
+        SELECT DISTINCT R.PROGRESSIVO_GO FROM schede_di_lavorazione L
+        INNER JOIN
+        righe_scheda_lavorazione R
+        ON L.IdScheda = R.IdScheda
+        WHERE L.IdScheda = :P_IdScheda
+        AND (R.RIGA_GO IS NOT NULL)
+        AND (R.PROGRESSIVO_GO IS NOT NULL);
+
+      '''; q.ParamByName('P_IdScheda').Value := aIdScheda; q.Open;
+
+      SetLength(result, q.RecordCount);
+
+      var
+      i := 0;
+      while not q.Eof do
+      begin
+
+        result[i] := q.Fields[0].AsInteger;
+        inc(i);
+        q.Next
+      end;
+
+
+      // result := ;
+      // tmslogger.info( format('%d - > %d',[aIdScheda, q.Fields[0].AsInteger])) ;
+
+    finally
+      q.Free
+    end;
+
+  end;
+end;
+
+function TDM.HasDownloadMaterial(aIdScheda: integer): Boolean;
+var
+  q: TUniQuery;
+begin
+  q := TUniQuery.Create(nil);
+  try
+    q.Connection := connFal_Fusti;
+    q.SQL.Text := '''
+        SELECT COUNT(*) AS TRIGHE FROM schede_di_lavorazione L
+        INNER JOIN
+       righe_scheda_lavorazione R
+       ON L.IdScheda = R.IdScheda WHERE
+       L.IdScheda = :P_IdScheda
+       AND (R.RIGA_GO IS NOT NULL)
+       AND (R.PROGRESSIVO_GO IS NOT NULL);
+
+
+    ''';
+    q.ParamByName('P_IdScheda').Value := aIdScheda;
+    q.Open;
+    result := q.Fields[0].AsInteger > 0;
+    // tmslogger.info( format('%d - > %d',[aIdScheda, q.Fields[0].AsInteger])) ;
+
+  finally
+    q.Free
+  end;
+
+end;
+
 procedure TDM.qrySelectPartslavorazioniGetText(Sender: TField; var Text: string;
   DisplayText: Boolean);
 var
   a: TArray<String>;
-  i: Integer;
+  i: integer;
 begin
   a := Sender.asstring.Split(['$', '#']);
   i := Length(a);
@@ -283,7 +360,7 @@ procedure TDM.RegistraSchema(aSchema: Ischema);
 
 var
   g: TGeoSchema;
-  i: Integer;
+  i: integer;
   lg: TGeosSchema;
 begin
   // registra schema
@@ -382,14 +459,14 @@ function TDM.RegistraSchemiTroncatrice(ListaSchemiTroncatrice
   : TSchemiTRV): Boolean;
 var
   s: TSchemaTRV;
-//  idMacchina: Integer;
-//  i: Integer;
- // idSchema: Cardinal;
- // c: Integer; // conta gli schemi rolled back
+  // idMacchina: Integer;
+  // i: Integer;
+  // idSchema: Cardinal;
+  // c: Integer; // conta gli schemi rolled back
 begin
   // registra la lista degli schemi delle troncatrici TRV2200 e TRSI7500
   // cicla la lista degli schemi
- // c := 0;
+  // c := 0;
   for s in ListaSchemiTroncatrice do
   begin
     if s.FPArti.Count > 0 then
@@ -397,13 +474,39 @@ begin
       RegistraSchema(s);
 
     end;
-   
+
   end;
   TThread.Synchronize(TThread.Current,
     procedure
     begin
       qryRigheScheda.Refresh
     end);
+end;
+
+procedure TDM.ResetCoordinateGo(aIdScheda: integer);
+var
+ q : TUniSQL;
+begin
+   q := TUniSQL.Create(nil);
+   try
+     q.Connection := connFal_Fusti;
+     q.SQL.Text :=
+
+     '''
+      UPDATE righe_scheda_lavorazione
+      SET riga_go = NULL,
+       progressivo_go = NULL
+      WHERE idScheda = :p_idScheda;
+
+     ''';
+     q.ParamByName('p_idScheda').Value := aIdScheda;
+     q.Execute;
+
+
+   finally
+     q.Free
+   end;
+
 end;
 
 procedure TDM.tblFermiMacchina_oldAfterDelete(DataSet: TDataSet);
@@ -420,9 +523,9 @@ procedure TDM.tblFermiMacchina_oldNewRecord(DataSet: TDataSet);
 begin
   if qryMaxNumNotaSchedaLav.Fields[0].IsNull then
 
-    tblFermiMacchinaNumNota.Value := 1
+    tblfermimacchinaNumNota.Value := 1
   else
-    tblFermiMacchinaNumNota.Value := qryMaxNumNotaSchedaLav.Fields[0]
+    tblfermimacchinaNumNota.Value := qryMaxNumNotaSchedaLav.Fields[0]
       .AsInteger + 1;
 
 end;
@@ -466,7 +569,7 @@ end;
 
 procedure TDM.tblRigheSchedaCalcFields(DataSet: TDataSet);
 var
-  c: Integer;
+  c: integer;
 begin
 
   if tblRigheSchedaPacco.Value > 0 then
@@ -493,8 +596,8 @@ end;
 
 procedure TDM.tblRigheSchedaQtaValidate(Sender: TField);
 var
-  tq: Integer;
-  tr: Integer;
+  tq: integer;
+  tr: integer;
 begin
   if Sender.AsInteger < 0 then
     raise Exception.Create('Non puoi inserire un valore negativo');
@@ -517,7 +620,7 @@ end;
 procedure TDM.tblRigheSchedaTempoTaglioGetText(Sender: TField; var Text: string;
 DisplayText: Boolean);
 var
-  m, s: Integer;
+  m, s: integer;
   // t: string;
 
 begin
@@ -531,7 +634,7 @@ end;
 procedure TDM.tblSchedeLavAfterClose(DataSet: TDataSet);
 begin
   tblRigheScheda.Close;
-  tblFermiMacchina.Close;
+  tblfermimacchina.Close;
 
 end;
 
@@ -560,6 +663,11 @@ begin
 
   if Assigned(OnSchedeScrolling) then
     FOnSchedeScrolling(Self);
+end;
+
+procedure TDM.tblSchedeLavCalcFields(DataSet: TDataSet);
+begin
+  tblSchedeLavOkScarico.Value := HasDownloadMaterial(tblSchedeLavIdScheda.Value)
 end;
 
 procedure TDM.tblSchedeLavMacchinaChange(Sender: TField);

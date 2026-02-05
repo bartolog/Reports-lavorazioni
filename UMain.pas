@@ -257,6 +257,7 @@ type
     procedure actFastLoadPantografoExecute(Sender: TObject);
     procedure Action1Execute(Sender: TObject);
     procedure actScaricaMatPrimaExecute(Sender: TObject);
+    procedure actScaricaMatPrimaUpdate(Sender: TObject);
     procedure FormKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure btnUpdateClick(Sender: TObject);
 
@@ -956,6 +957,25 @@ procedure TMainForm.actScaricaMatPrimaExecute(Sender: TObject);
 var
   MatQta: Double;
 begin
+
+    var act := (sender as TAction);
+
+   if act.ImageIndex = 4 then
+   begin
+      if Ask('Vuoi annullare lo scarico materiale?','Gestionale','Annullamento scarico materiale'  ) = mrNo then exit;
+      var prs := dm.GetProgressiviGoByIdScheda(dm.tblSchedeLavIdScheda.Value);
+      for var i := Low(prs) to High(prs) do
+
+      GestGoContainer.EliminaDDT(prs[i]);
+      dm.ResetCoordinateGo(dm.tblSchedeLavIdScheda.Value) ;
+
+        dm.tblSchedeLav.Refresh;
+
+      exit;
+
+
+   end;
+
   // todo :
   // ottenere i codici della materia prima dalla query (qryGetMatGoByIdScheda)
   // creare una lista :  TMateriePrime = Tlist<IDDTItem>;
@@ -964,6 +984,7 @@ begin
   // aDataScheda: Tdate); )
   // chiamare la procedura REGISTRADDT(TDDT_SCPR.Create(aListMat: TMateriePrime);
   // del modulo (UgestGOContainer)
+
 
   with TTaskDialog.Create(nil) do
     try
@@ -1066,6 +1087,7 @@ begin
     end;
 
   end;
+     dm.tblSchedeLav.Refresh;
 
 end;
 // procedure TMainForm.actReadTotalsExecute(Sender: TObject);
@@ -1169,6 +1191,22 @@ begin
   begin
     Enabled := (cmbMacchina.KeyValue = ttTRV2200) or
       (cmbMacchina.KeyValue = ttTRSI7500E);
+  end;
+end;
+
+procedure TMainForm.actScaricaMatPrimaUpdate(Sender: TObject);
+begin
+  var a := (Sender as TAction);
+  if dm.tblSchedeLavOkScarico.Value then
+  begin
+    a.ImageIndex := 4;
+    a.Caption := 'Annulla scarico'
+
+
+  end
+  else begin
+    a.ImageIndex := 2;
+    a.Caption := 'Scarica materiale'
   end;
 end;
 
@@ -1428,7 +1466,7 @@ begin
   with WebUpdate1 do
   begin
     if NewVersionAvailable then
-      if Ask('Vuoi aggiornare?', 'Aggiornamento', 'Nuova versione') = mrOk  then
+      if Ask('Vuoi aggiornare?', 'Aggiornamento', 'Nuova versione') = mrOk then
         DoUpdate;
 
   end;
