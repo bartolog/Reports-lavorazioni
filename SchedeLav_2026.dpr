@@ -49,7 +49,6 @@ begin
   TStyleManager.TrySetStyle('Luna');
   Application.Title := 'Gestioine rapportini produzione';
   Application.CreateForm(TDM, DM);
-  Application.CreateForm(TDMGO, DMGO);
   Application.CreateForm(TMainForm, MainForm);
   Application.CreateForm(TfrmImpostazioni, frmImpostazioni);
   Application.CreateForm(TfrmSchemiIncompleti, frmSchemiIncompleti);
@@ -58,6 +57,7 @@ begin
   Application.CreateForm(TfrmSelectParts, frmSelectParts);
   Application.CreateForm(TdlgGoParams, dlgGoParams);
   Application.CreateForm(TGestGoContainer, GestGoContainer);
+  Application.CreateForm(TDMGO, DMGO);
   Application.Run;
 end.
 

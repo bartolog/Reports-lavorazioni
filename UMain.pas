@@ -40,7 +40,7 @@ uses
   dxPScxExtEditorProducers, dxPSContainerLnk, dxPSCore, dxPScxCommon,
   cxButtons, dxSkinWXI, Vcl.WinXCtrls, frxSmartMemo, frCoreClasses,
   dxUIAClasses, cxDBLookupComboBox, UDMGO, UGestionaleParams, UDDTInterface,
-  UGestGoContainer, UMagClasses, WUpdate;
+  UGestGoContainer, UMagClasses, WUpdate, WUpdateWiz, WUpdateLanguagesU;
 
 type
 
@@ -218,6 +218,8 @@ type
     actScaricaMatPrima: TAction;
     WebUpdate1: TWebUpdate;
     btnUpdate: TcxButton;
+    WebUpdateWizard1: TWebUpdateWizard;
+    WebUpdateWizardItalian1: TWebUpdateWizardItalian;
     procedure FormShow(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure Scheminoncompletati1Click(Sender: TObject);
@@ -958,23 +960,26 @@ var
   MatQta: Double;
 begin
 
-    var act := (sender as TAction);
+  var
+  act := (Sender as TAction);
 
-   if act.ImageIndex = 4 then
-   begin
-      if Ask('Vuoi annullare lo scarico materiale?','Gestionale','Annullamento scarico materiale'  ) = mrNo then exit;
-      var prs := dm.GetProgressiviGoByIdScheda(dm.tblSchedeLavIdScheda.Value);
-      for var i := Low(prs) to High(prs) do
+  if act.ImageIndex = 4 then
+  begin
+    if Ask('Vuoi annullare lo scarico materiale?', 'Gestionale',
+      'Annullamento scarico materiale') = mrNo then
+      Exit;
+    var
+    prs := dm.GetProgressiviGoByIdScheda(dm.tblSchedeLavIdScheda.Value);
+    for var i := Low(prs) to High(prs) do
 
       GestGoContainer.EliminaDDT(prs[i]);
-      dm.ResetCoordinateGo(dm.tblSchedeLavIdScheda.Value) ;
+    dm.ResetCoordinateGo(dm.tblSchedeLavIdScheda.Value);
 
-        dm.tblSchedeLav.Refresh;
+    dm.tblSchedeLav.Refresh;
 
-      exit;
+    Exit;
 
-
-   end;
+  end;
 
   // todo :
   // ottenere i codici della materia prima dalla query (qryGetMatGoByIdScheda)
@@ -984,7 +989,6 @@ begin
   // aDataScheda: Tdate); )
   // chiamare la procedura REGISTRADDT(TDDT_SCPR.Create(aListMat: TMateriePrime);
   // del modulo (UgestGOContainer)
-
 
   with TTaskDialog.Create(nil) do
     try
@@ -1087,7 +1091,7 @@ begin
     end;
 
   end;
-     dm.tblSchedeLav.Refresh;
+  dm.tblSchedeLav.Refresh;
 
 end;
 // procedure TMainForm.actReadTotalsExecute(Sender: TObject);
@@ -1196,15 +1200,16 @@ end;
 
 procedure TMainForm.actScaricaMatPrimaUpdate(Sender: TObject);
 begin
-  var a := (Sender as TAction);
+  var
+  a := (Sender as TAction);
   if dm.tblSchedeLavOkScarico.Value then
   begin
     a.ImageIndex := 4;
     a.Caption := 'Annulla scarico'
 
-
   end
-  else begin
+  else
+  begin
     a.ImageIndex := 2;
     a.Caption := 'Scarica materiale'
   end;
@@ -1466,8 +1471,13 @@ begin
   with WebUpdate1 do
   begin
     if NewVersionAvailable then
+    begin
       if Ask('Vuoi aggiornare?', 'Aggiornamento', 'Nuova versione') = mrOk then
-        DoUpdate;
+        DoUpdate
+    end
+    else
+
+      Info('Il programma è aggiornato all''ultima versione');
 
   end;
 end;
@@ -1976,6 +1986,10 @@ begin
   grdGrid1DBTableView3.ReStoreFromIniFile(p + '\layout_righe2.ini');
   grSchedeDBTableView1.ReStoreFromIniFile(p + '\ViewLayoutSchede.ini', true,
     true, [gsoUseFilter]);
+
+
+
+    GestGoContainer.Connect;
 
 end;
 

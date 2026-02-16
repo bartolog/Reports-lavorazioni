@@ -552,8 +552,6 @@ object MainForm: TMainForm
             LookAndFeel.SkinName = 'McSkin'
             OptionsImage.Layout = blGlyphTop
             TabOrder = 3
-            ExplicitLeft = -5
-            ExplicitTop = -2
           end
           object btnUpdate: TcxButton
             Left = 265
@@ -621,6 +619,7 @@ object MainForm: TMainForm
               Kind = skSum
               Column = cxGrid1DBTableView1Num_Pannelli
             end>
+          OptionsCustomize.ColumnMoving = False
           OptionsCustomize.ColumnsQuickCustomization = True
           OptionsData.CancelOnExit = False
           OptionsData.DeletingConfirmation = False
@@ -646,7 +645,11 @@ object MainForm: TMainForm
             Options.Editing = False
           end
           object cxGrid1DBTableView1Qta: TcxGridDBColumn
+            Caption = 'Quantit'#224
             DataBinding.FieldName = 'Qta'
+            PropertiesClassName = 'TcxTextEditProperties'
+            Properties.Alignment.Horz = taCenter
+            FooterAlignmentHorz = taCenter
           end
           object cxGrid1DBTableView1Nome: TcxGridDBColumn
             DataBinding.FieldName = 'Nome'
@@ -662,6 +665,7 @@ object MainForm: TMainForm
             Caption = 'Materiale Go'
             DataBinding.FieldName = 'CodiceMatGo'
             PropertiesClassName = 'TcxLookupComboBoxProperties'
+            Properties.ClearKey = 46
             Properties.KeyFieldNames = 'CODICE'
             Properties.ListColumns = <
               item
@@ -5090,6 +5094,7 @@ object MainForm: TMainForm
       OptionsOnEveryPage.Headers = False
       OptionsOnEveryPage.Caption = False
       OptionsOnEveryPage.FilterBar = False
+      OptionsSize.AutoWidth = True
       OptionsView.Footers = False
       OptionsView.Caption = False
       OptionsView.ExpandButtons = False
@@ -5106,16 +5111,63 @@ object MainForm: TMainForm
     Logging = True
     LogFileName = 'WUPDATE.LOG'
     PostUpdateInfo.Enabled = False
+    ShowDownloadProgress = True
     Signature = 'WebUpdate'
     TempDirectory = '.'
     TimeFormat = 'hh:nn'
     TimeSeparator = ':'
     UpdateType = fileUpdate
+    UpdateUpdate = wuuSilent
     URL = 
       '\\192.168.10.166\Apps_AutoUpdate\Schede Lavorazioni\SchedeLavora' +
       'zioni.INF'
     Version = '2.6.5.1'
     Left = 736
     Top = 264
+  end
+  object WebUpdateWizard1: TWebUpdateWizard
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -12
+    Font.Name = 'Verdana'
+    Font.Style = [fsBold]
+    Language = WebUpdateWizardItalian1
+    WebUpdate = WebUpdate1
+    Left = 804
+    Top = 424
+  end
+  object WebUpdateWizardItalian1: TWebUpdateWizardItalian
+    Welcome = 
+      'Premi Inizia per verificare la disponibilit'#224' di aggiornamenti de' +
+      'll'#39'applicazione...'
+    StartButton = 'Inizia'
+    NextButton = 'Avanti'
+    ExitButton = 'Esci'
+    RestartButton = 'Riavvia'
+    CancelButton = 'Annulla'
+    FailedDownload = 'Failed to download updates'
+    GetUpdateButton = 'Scarica l'#39'aggiornamento'
+    NewVersionFound = 'Trovata una nuova versione'
+    NewVersion = 'Nuova versione'
+    NoNewVersionAvail = 'Nessuna nuova versione disponibile.'
+    NewVersionAvail = 'Nuova versione disponibile.'
+    CurrentVersion = 'Versione corrente'
+    NoFilesFound = 'file non trovati per l'#39'aggiornamento'
+    NoUpdateOnServer = 'non c'#39#232' un nuovo aggiornamento sul server...'
+    CannotConnect = 'Impossibile stabilire la connessione con il server o '
+    WhatsNew = 'Novit'#224
+    License = 'Accordo di licenza'
+    AcceptLicense = 'Accetto'
+    NotAcceptLicense = 'Non accetto'
+    ComponentsAvail = 'Componenti dell'#39'applicazione disponibil'
+    DownloadingFiles = 'Scarico i file'
+    CurrentProgress = 'Avanzamento del file corrente'
+    TotalProgress = 'Avanzamento complessivo'
+    UpdateComplete = 'Aggiornamento completo...'
+    RestartInfo = 'Premi riavvia per eseguire l'#39'applicazione aggiornata.'
+    WhatsNewPopup = 'View in Notepad'
+    LicensePopup = 'View in Notepad'
+    Left = 820
+    Top = 384
   end
 end
